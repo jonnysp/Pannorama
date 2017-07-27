@@ -52,7 +52,7 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama']['editheader'],
 				'href'                => 'table=tl_pannorama_scene',
-				'icon'                => 'db.gif'
+				'icon'                => 'bundles/jonnysppannorama/images/pannorama.png'
 			),
 
 			'edit' => array
@@ -172,8 +172,6 @@ class tl_pannorama extends Backend{
 	public function getScenes(DataContainer $dc)
 	{
 
-		return array('default', 'internal', 'article', 'external');
-		
 		$objScenes =  \PannoramaSceneModel::findByPid($dc->id);
 		$arrScenes = array();
 		if (isset($objScenes)){

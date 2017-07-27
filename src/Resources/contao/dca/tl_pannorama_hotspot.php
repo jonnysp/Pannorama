@@ -148,7 +148,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_hotspot'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['sceneId'],
 			'inputType'               => 'select',
-			//'options_callback'        => array('tl_pannorama_hotspot', 'getScenes'),
+			'options_callback'        => array('tl_pannorama_hotspot', 'getScenes'),
 			'eval'                    => array('includeBlankOption' => true,'submitOnChange' => true, 'mandatory'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
@@ -203,9 +203,9 @@ class tl_pannorama_hotspot extends Backend{
 
 		
 		if ($arrRow['type'] == 'scene') {
-			$out = \Image::getHtml(Image::get('system/modules/pannorama/assets/images/hotspot_big.png', 32, 32, 'center'), '', 'style="float:left;"') . ' ' . $out;
+			$out = \Image::getHtml(Image::get('bundles/jonnysppannorama/images/hotspot_big.png', 32, 32, 'center'), '', 'style="float:left;"') . ' ' . $out;
 		}elseif ($arrRow['type'] == 'info') {
-			$out = \Image::getHtml(Image::get('system/modules/pannorama/assets/images/information_big.png', 32, 32, 'center'), 'system/modules/pannorama/assets/images/hotspot.png', 'style="float:left;"') . ' ' . $out;
+			$out = \Image::getHtml(Image::get('bundles/jonnysppannorama/images/information_big.png', 32, 32, 'center'), 'bundles/jonnysppannorama/images/hotspot.png', 'style="float:left;"') . ' ' . $out;
 		}
 
 

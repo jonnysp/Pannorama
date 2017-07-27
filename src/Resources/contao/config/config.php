@@ -22,7 +22,7 @@ array_insert($GLOBALS['BE_MOD']['content'], 100, array
 /**
  * Front end modules
  */
-array_insert($GLOBALS['TL_CTE'], 2, array
+array_insert($GLOBALS['TL_CTE'], 1, array
 (
 	'includes' => array
 	(
@@ -30,4 +30,13 @@ array_insert($GLOBALS['TL_CTE'], 2, array
 	)
 ));
 
+/**
+ * Back end form fields
+ */
+array_insert($GLOBALS['BE_FFL'] ,1, array
+(
+	'pannoramasceneposition'        => 'PannoramaScenePositionSelector',
+	'pannoramahotspotposition'      => 'PannoramaHotspotPositionSelector',
+	'pannoramatargetposition'		=>'PannoramaTargetPositionSelector'
+));
 

@@ -11,7 +11,7 @@
 /**
  * Back end modules
  */
-array_insert($GLOBALS['BE_MOD']['content'], 1, array
+array_insert($GLOBALS['BE_MOD']['content'], 100, array
 (
 	'Pannorama' => array
 	(

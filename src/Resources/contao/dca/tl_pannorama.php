@@ -52,7 +52,7 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama']['editheader'],
 				'href'                => 'table=tl_pannorama_scene',
-				'icon'                => 'system/modules/pannorama/assets/images/pannorama.png'
+				'icon'                => 'db.gif'
 			),
 
 			'edit' => array
@@ -143,7 +143,7 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama']['firstScene'],
 			'search'                  => true,
 			'inputType'               => 'select',
-			'options_callback'        => array('tl_pannorama', 'getScenes'),
+			//'options_callback'        => array('tl_pannorama', 'getScenes'),
 			'eval'                    => array( 'submitOnChange'=>true, 'doNotCopy'=>true,'maxlength'=>128, 'tl_class'=>'w50'),
 			'sql'                     => "varchar(128) NOT NULL default ''"
 		),
@@ -168,17 +168,17 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 );
 
 class tl_pannorama extends Backend{
-//
-//	public function getScenes(DataContainer $dc)
-//	{
-//		$objScenes =  \PannoramaScene::findByPid($dc->id);
-//		$arrScenes = array();
-//		if (isset($objScenes)){
-//			foreach ($objScenes as $objScene)
-//			{
-//				$arrScenes[$objScene->id] = $objScene->title;
-//			}
-//		};
-//		return $arrScenes;
-//	}
+
+	public function getScenes(DataContainer $dc)
+	{
+		$objScenes =  \PannoramaScene::findByPid($dc->id);
+		$arrScenes = array();
+		if (isset($objScenes)){
+			foreach ($objScenes as $objScene)
+			{
+				$arrScenes[$objScene->id] = $objScene->title;
+			}
+		};
+		return $arrScenes;
+	}
 }

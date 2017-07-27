@@ -148,7 +148,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_hotspot'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['sceneId'],
 			'inputType'               => 'select',
-			'options_callback'        => array('tl_pannorama_hotspot', 'getScenes'),
+			//'options_callback'        => array('tl_pannorama_hotspot', 'getScenes'),
 			'eval'                    => array('includeBlankOption' => true,'submitOnChange' => true, 'mandatory'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),

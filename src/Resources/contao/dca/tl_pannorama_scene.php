@@ -56,7 +56,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['editscene'],
 				'href'                => 'table=tl_pannorama_hotspot',
-				'icon'                => 'system/modules/pannorama/assets/images/hotspot.png'
+				'icon'                => 'featured.gif'
 			),
 
 			'edit' => array

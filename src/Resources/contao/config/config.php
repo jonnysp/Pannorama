@@ -13,10 +13,21 @@
  */
 array_insert($GLOBALS['BE_MOD']['content'], 100, array
 (
-	'Pannorama' => array
+	'pannorama' => array
 	(
-			'tables' => array('tl_pannorama', 'tl_pannorama_scene','tl_pannorama_hotspot'),
-			'icon' => 'system/modules/pannorama/assets/images/pannorama.png'
+		'tables' => array('tl_pannorama', 'tl_pannorama_scene','tl_pannorama_hotspot')
 	)
 ));
+
+/**
+ * Front end modules
+ */
+array_insert($GLOBALS['TL_CTE'], 2, array
+(
+	'includes' => array
+	(
+		'pannorama_viewer'    => 'PannoramaViewer'
+	)
+));
+
 

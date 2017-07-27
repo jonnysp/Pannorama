@@ -1,4 +1,5 @@
 <?php
+namespace Contao;
 
 class PannoramaHotspot extends \Model
 {

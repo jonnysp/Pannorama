@@ -1,4 +1,5 @@
 <?php
+namespace Contao;
 
 class PannoramaScene extends \Model
 {

@@ -10,9 +10,9 @@ class PannoramaScenePositionSelector extends \Widget
 	{
 		$this->loadLanguageFile('tl_pannorama');
 
-		$GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jonnysppannorama/pannellum.js|static';
-		$GLOBALS['TL_CSS'][] = 		  'bundles/jonnysppannorama/pannellum.css|screen';
-		$GLOBALS['TL_CSS'][] 		= 'bundles/jonnysppannorama/hotspots.css|screen';
+		$GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jonnysppannorama/pannellum.js';
+		$GLOBALS['TL_CSS'][] = 		  'bundles/jonnysppannorama/pannellum.css';
+		$GLOBALS['TL_CSS'][] 		= 'bundles/jonnysppannorama/hotspots.css';
 		
 		$startscene = \PannoramaSceneModel::findByPk($this->__get('currentRecord'));
 

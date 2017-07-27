@@ -1,0 +1,10 @@
+
+<div class="<?= $this->class; ?>" <?= $this->cssID; ?> <?php if ($this->style): ?> style="<?= $this->style; ?>"<?php endif; ?>>
+	<div id="panorama<?= $this->id; ?>"></div>
+	<script>
+		pannellum.viewer('panorama<?= $this->id; ?>', <?= $this->pannorama ?>);
+	</script>
+</div>
+
+
+

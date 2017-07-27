@@ -167,7 +167,8 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 	)
 );
 
-class tl_pannorama extends Backend{
+class tl_pannorama extends Backend
+{
 
 	public function getScenes(DataContainer $dc)
 	{
@@ -182,4 +183,5 @@ class tl_pannorama extends Backend{
 		};
 		return $arrScenes;
 	}
+
 }

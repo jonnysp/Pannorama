@@ -188,7 +188,7 @@ class tl_pannorama_hotspot extends Backend{
 	public function generateReferenzRow($arrRow)	{
 		$this->loadLanguageFile('tl_pannorama_hotspot');
 
-		$thisScene =  \PannoramaScene::findByPk($arrRow['sceneId']);
+		$thisScene =  \PannoramaSceneModel::findByPk($arrRow['sceneId']);
 
 		$out =  '<table style="margin-left:40px;" class="tl_header_table">
 			<tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['title'][0].':</span></th><th>'.$arrRow['title']. '</th></tr>
@@ -209,7 +209,8 @@ class tl_pannorama_hotspot extends Backend{
 		}
 
 
-		return	$out.'</table>';	  
+		return	$out.'</table>';
+
 
     }
 
@@ -217,7 +218,7 @@ class tl_pannorama_hotspot extends Backend{
 	public function getScenes(DataContainer $dc)
 	{
 
-		$objScenes = \PannoramaScene::findByPid(\PannoramaScene::findByPk(\PannoramaHotspot::findByPk($dc->id)->pid)->pid);
+		$objScenes = \PannoramaSceneModel::findByPid(\PannoramaSceneModel::findByPk(\PannoramaHotspotModel::findByPk($dc->id)->pid)->pid);
 
 		$arrScenes = array();
 

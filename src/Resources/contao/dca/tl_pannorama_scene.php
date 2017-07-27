@@ -339,7 +339,7 @@ class tl_pannorama_scene extends Backend{
 				  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['showFullscreenCtrl'][0].':</span></th><td>'. ($arrRow['showFullscreenCtrl'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['autoRotateOn'][0].':</span></th><td>'. ($arrRow['autoRotateOn'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['compass'][0].':</span></th><td>'. ($arrRow['compass'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
-                  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['hotspots'].'</span></th><td>'.\PannoramaHotspot::countBy('pid', $arrRow['id']).'</td></tr>
+                  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['hotspots'].'</span></th><td>'.\PannoramaHotspotModel::countBy('pid', $arrRow['id']).'</td></tr>
                   </table>';
 
 

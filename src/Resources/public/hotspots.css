@@ -1,0 +1,10 @@
+.scene_spot{
+	background-image: url("images/hotspot.png");
+	width: 16px;
+	height: 16px;
+}
+.info_spot{
+	background-image: url("images/information.png");
+	width: 16px;
+	height: 16px;
+}

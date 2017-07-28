@@ -63,7 +63,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['edit'],
 				'href'                => 'act=edit',
-				'icon'                => 'edit.gif'
+				'icon'                => 'edit.svg'
 				
 			),
 			
@@ -72,21 +72,21 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['copy'],
 				'href'                => 'act=copy',
-				'icon'                => 'copy.gif'
+				'icon'                => 'copy.svg'
 			),
 
 			'cut' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['cut'],
 				'href'                => 'act=paste&amp;mode=cut',
-				'icon'                => 'cut.gif'
+				'icon'                => 'cut.svg'
 			),
 
 			'delete' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['delete'],
 				'href'                => 'act=delete',
-				'icon'                => 'delete.gif',
+				'icon'                => 'delete.svg',
 				'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
 			),
 
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['show'],
 				'href'                => 'act=show',
-				'icon'                => 'show.gif'
+				'icon'                => 'show.svg'
 			)
 		)
 	),

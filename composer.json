@@ -40,5 +40,9 @@
     },
     "extra": {
         "contao-manager-plugin": "Jonnysp\\Pannorama\\ContaoManager\\Plugin"
+    },
+    "support": {
+        "issues": "https://github.com/jonnysp/Pannorama/issues",
+        "source": "https://github.com/jonnysp/Pannorama"
     }
 }

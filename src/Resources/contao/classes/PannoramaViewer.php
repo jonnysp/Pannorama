@@ -1,6 +1,13 @@
 <?php
-			
-class PannoramaViewer extends ContentElement
+
+use Imagine\Image\Point;
+use Imagine\Image\Box;
+use Contao\Image\ImportantPart;
+use Contao\Image\Resizer;
+use Contao\Image\ResizeConfiguration;
+use Contao\Image\ResizeOptions;
+
+class PannoramaViewer extends \ContentElement
 {
 	protected $strTemplate = 'ce_pannorama';
 
@@ -31,8 +38,9 @@ class PannoramaViewer extends ContentElement
         $config['default']['sceneFadeDuration'] = intval($objPannorama->sceneFadeDuration);
         $config['default']['autoLoad'] = boolval($objPannorama->autoLoad);
 
+	
 		if (boolval($objPannorama->autoLoad) == false){
-			$config['default']['preview'] = $this->Environment->base.\FilesModel::findByPk($objPannorama->preview)->path;
+			$config['default']['preview'] = \Environment::get('base').\FilesModel::findByPk($objPannorama->preview)->path;
 			$config['default']['loadButtonLabel'] = $objPannorama->loadButtonLabel;
 		}
 
@@ -62,26 +70,57 @@ class PannoramaViewer extends ContentElement
 				switch ($value->type) {
 				    case 'equirectangular':
 						$config['scenes'][$value->id]['type'] ='equirectangular';
-						$config['scenes'][$value->id]['panorama'] = $this->Environment->base.\FilesModel::findByPk($value->panorama)->path;
+						$config['scenes'][$value->id]['panorama'] = \Environment::get('base').\FilesModel::findByPk($value->panorama)->path;
 				        break;
 
 				    case 'cubemap_single':
 						$config['scenes'][$value->id]['type'] = 'cubemap';
 						$filemodel = \FilesModel::findByPk($value->panorama);
 						if (isset($filemodel)){
+
 							$file = new \File($filemodel->path);
 							$panelsizeheight = $file->imageSize[1] / 3;
 							$panelsizewidth = $file->imageSize[0] / 4;
 
 							if ($panelsizeheight == $panelsizewidth){
-								$image = new \Image($file);
-								//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
-								$cubemap[] = $this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(); // front
-								$cubemap[] = $this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth*2,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath();
-								$cubemap[] = $this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth*3,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath();
-								$cubemap[] = $this->Environment->base.$image->setImportantPart(array('x'=>0,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(); // left
-								$cubemap[] = $this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth,'y'=>0,'width'=> $panelsizewidth,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(); //top
-								$cubemap[] = $this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth,'y'=>$panelsizeheight*2,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(); // down
+
+								// New syntax
+								$container = System::getContainer();
+								$rootDir = $container->getParameter('kernel.project_dir');
+								$image = $container->get('contao.image.image_factory')->create($rootDir.'/'.$filemodel->path,NULL);
+								$resizer = new Resizer($rootDir.'/assets/images/');
+								
+								//front
+								$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+								$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+								$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+								//right
+								$image->setImportantPart(new ImportantPart(new Point($panelsizewidth*2,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+								$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+								$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+								//back
+								$image->setImportantPart(new ImportantPart(new Point($panelsizewidth*3,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+								$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+								$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+								//left
+								$image->setImportantPart(new ImportantPart(new Point(0,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+								$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+								$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+								//up
+								$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,0),New Box($panelsizewidth,$panelsizewidth)));
+								$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+								$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+								//down
+								$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,$panelsizewidth*2),New Box($panelsizewidth,$panelsizewidth)));
+								$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+								$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+							
+
 								$config['scenes'][$value->id]['cubeMap'] = $cubemap;
 								unset($cubemap);
 							}
@@ -91,12 +130,12 @@ class PannoramaViewer extends ContentElement
 				    case 'cubemap_multi':
 						$config['scenes'][$value->id]['type'] = 'cubemap';
 						//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
-						$cubemap[] = $this->Environment->base.\FilesModel::findByPk($value->panoramafront)->path;
-						$cubemap[] = $this->Environment->base.\FilesModel::findByPk($value->panoramaright)->path;
-						$cubemap[] = $this->Environment->base.\FilesModel::findByPk($value->panoramaback)->path;
-						$cubemap[] = $this->Environment->base.\FilesModel::findByPk($value->panoramaleft)->path;
-						$cubemap[] = $this->Environment->base.\FilesModel::findByPk($value->panoramaup)->path;
-						$cubemap[] = $this->Environment->base.\FilesModel::findByPk($value->panoramadown)->path;
+						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramafront)->path;
+						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaright)->path;
+						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaback)->path;
+						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaleft)->path;
+						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaup)->path;
+						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramadown)->path;
 						$config['scenes'][$value->id]['cubeMap'] = $cubemap;
 						unset($cubemap);
 				        break;

@@ -1,5 +1,9 @@
 <?php
 
+use Contao\Image\Resizer;
+use Contao\Image\ResizeConfiguration;
+use Contao\Image\ResizeOptions;
+
 /**
  * Table tl_recipes
  */
@@ -343,33 +347,54 @@ class tl_pannorama_scene extends Backend{
                   </table>';
 
 
+		$container = System::getContainer();
+		$rootDir = $container->getParameter('kernel.project_dir');	
+		$resizer = new Resizer($rootDir.'/assets/images/');		
+
+
 		switch ($arrRow['type']) {
+
 		    case 'equirectangular':
-		        $label = \Image::getHtml(Image::get(\FilesModel::findByUuid($arrRow['panorama'])->path, 200, 100, 'center'), '', 'style="float:left;"') . ' ' . $label;
-		        break;
+				$image = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panorama'])->path,NULL);
+				$resizeconfig = (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_CROP);
+				$label = '<img src="'. \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '" style="float:left;" />' . $label;
+				break;
 		    case 'cubemap_single':
-		        $label = \Image::getHtml(Image::get(\FilesModel::findByUuid($arrRow['panorama'])->path, 200, 150, 'center'), '', 'style="float:left;"') . ' ' . $label;
+				$image = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panorama'])->path,NULL);
+				$resizeconfig = (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_CROP);
+				$label = '<img src="'. \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '" style="float:left;" />' . $label;
 		        break;
 		    case 'cubemap_multi':
+
+				$imageup = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panoramaup'])->path,NULL);
+				$imagele = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panoramaleft'])->path,NULL);
+				$imagefr = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panoramafront'])->path,NULL);
+				$imageri = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panoramaright'])->path,NULL);
+				$imageba = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panoramaback'])->path,NULL);
+				$imagedo = $container->get('contao.image.image_factory')->create($rootDir.'/'.\FilesModel::findByUuid($arrRow['panoramadown'])->path,NULL);
+				$resizeconfig = (new ResizeConfiguration())->setWidth(50)->setHeight(50)->setMode(ResizeConfiguration::MODE_CROP);
+
+
+
 		        $label = '<table border="0" style="float:left;height:150px;width:200px;">
-					    <tr>
-					      <td style="font-size:0px;">&nbsp;</td>
-					      <td style="font-size:0px;">'.\Image::getHtml(\Image::get(\FilesModel::findByUuid($arrRow['panoramaup'])->path, 50, 50, 'center'), '', '').'</td>
-					      <td style="font-size:0px;">&nbsp;</td>
-					      <td style="font-size:0px;">&nbsp;</td>
-					    </tr>
-					    <tr>
-					      <td style="font-size:0px;">'.\Image::getHtml(\Image::get(\FilesModel::findByUuid($arrRow['panoramaleft'])->path, 50, 50, 'center'), '', '').'</td>
-					      <td style="font-size:0px;">'.\Image::getHtml(\Image::get(\FilesModel::findByUuid($arrRow['panoramafront'])->path, 50, 50, 'center'), '', '').'</td>
-					      <td style="font-size:0px;">'.\Image::getHtml(\Image::get(\FilesModel::findByUuid($arrRow['panoramaright'])->path, 50, 50, 'center'), '', '').'</td>
-					      <td style="font-size:0px;">'.\Image::getHtml(\Image::get(\FilesModel::findByUuid($arrRow['panoramaback'])->path, 50, 50, 'center'), '', '').'</td>
-					    </tr>
-					    <tr>
-					      <td style="font-size:0px;">&nbsp;</td>
-					      <td style="font-size:0px;">'.\Image::getHtml(\Image::get(\FilesModel::findByUuid($arrRow['panoramadown'])->path, 50, 50, 'center'), '', '').'</td>
-					      <td style="font-size:0px;">&nbsp;</td>
-					      <td style="font-size:0px;">&nbsp;</td>
-					    </tr>
+					<tr>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;"><img src="'. \Environment::get('base').$resizer->resize($imageup, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '"/></td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					</tr>
+					<tr>
+					  <td style="font-size:0px;"><img src="'. \Environment::get('base').$resizer->resize($imagele, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '"/></td>
+					  <td style="font-size:0px;"><img src="'. \Environment::get('base').$resizer->resize($imagefr, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '"/></td>
+					  <td style="font-size:0px;"><img src="'. \Environment::get('base').$resizer->resize($imageri, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '"/></td>
+					  <td style="font-size:0px;"><img src="'. \Environment::get('base').$resizer->resize($imageba, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '"/></td>
+					</tr>
+					<tr>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;"><img src="'. \Environment::get('base').$resizer->resize($imagedo, $resizeconfig, new ResizeOptions())->getUrl($rootDir). '"/></td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					</tr>
 					</table>'.' '.$label;
 		        break;
 		}

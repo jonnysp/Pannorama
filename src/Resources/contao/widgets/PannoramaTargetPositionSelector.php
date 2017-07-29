@@ -1,5 +1,12 @@
 <?php
 
+use Imagine\Image\Point;
+use Imagine\Image\Box;
+use Contao\Image\ImportantPart;
+use Contao\Image\Resizer;
+use Contao\Image\ResizeConfiguration;
+use Contao\Image\ResizeOptions;
+
 class PannoramaTargetPositionSelector extends \Widget
 {
 
@@ -22,7 +29,7 @@ class PannoramaTargetPositionSelector extends \Widget
 		switch ($startscene->type) {
 		    case 'equirectangular':
 				$config['type'] = 'equirectangular';
-				$config['panorama'] = $this->Environment->base.\FilesModel::findByPk($startscene->panorama)->path;
+				$config['panorama'] = \Environment::get('base').\FilesModel::findByPk($startscene->panorama)->path;
 		        break;
 		    case 'cubemap_single':
 		    	$config['type'] = 'cubemap';
@@ -33,16 +40,49 @@ class PannoramaTargetPositionSelector extends \Widget
 						$panelsizeheight = $file->imageSize[1] / 3;
 						$panelsizewidth = $file->imageSize[0] / 4;
 						if ($panelsizeheight == $panelsizewidth){
-							$image = new \Image($file);
-							//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
-							$config['cubeMap']	= array(
-								$this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(), // front
-								$this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth*2,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(),
-								$this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth*3,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(),
-								$this->Environment->base.$image->setImportantPart(array('x'=>0,'y'=>$panelsizeheight,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(), // left
-								$this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth,'y'=>0,'width'=> $panelsizewidth,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath(), //top
-								$this->Environment->base.$image->setImportantPart(array('x'=>$panelsizewidth,'y'=>$panelsizeheight*2,'width'=> $panelsizeheight,'height'=>$panelsizeheight))->setZoomLevel(100)->setResizeMode('crop')->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->executeResize()->getResizedPath() // down
-							);
+
+
+							// New syntax
+							$container = System::getContainer();
+							$rootDir = $container->getParameter('kernel.project_dir');
+							$image = $container->get('contao.image.image_factory')->create($rootDir.'/'.$filemodel->path,NULL);
+							$resizer = new Resizer($rootDir.'/assets/images/');
+
+
+							//front
+							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+							//right
+							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth*2,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+							//back
+							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth*3,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+							//left
+							$image->setImportantPart(new ImportantPart(new Point(0,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
+							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+							//up
+							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,0),New Box($panelsizewidth,$panelsizewidth)));
+							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+
+							//down
+							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,$panelsizewidth*2),New Box($panelsizewidth,$panelsizewidth)));
+							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+							
+
+							$config['cubeMap'] = $cubemap;
+							unset($cubemap);
+
 						}else{
 							echo $GLOBALS['TL_LANG']['tl_pannorama']['notcubemap'];
 						}
@@ -53,12 +93,12 @@ class PannoramaTargetPositionSelector extends \Widget
 				$config['type'] = 'cubemap';
 				//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
 				$config['cubeMap']	= array(
-					$this->Environment->base.\FilesModel::findByPk($startscene->panoramafront)->path,
-					$this->Environment->base.\FilesModel::findByPk($startscene->panoramaright)->path,
-					$this->Environment->base.\FilesModel::findByPk($startscene->panoramaback)->path,
-					$this->Environment->base.\FilesModel::findByPk($startscene->panoramaleft)->path,
-					$this->Environment->base.\FilesModel::findByPk($startscene->panoramaup)->path,
-					$this->Environment->base.\FilesModel::findByPk($startscene->panoramadown)->path
+					\Environment::get('base').\FilesModel::findByPk($startscene->panoramafront)->path,
+					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaright)->path,
+					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaback)->path,
+					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaleft)->path,
+					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaup)->path,
+					\Environment::get('base').\FilesModel::findByPk($startscene->panoramadown)->path
 				);
 		        break;
 		}

@@ -203,9 +203,9 @@ class tl_pannorama_hotspot extends Backend{
 
 		
 		if ($arrRow['type'] == 'scene') {
-			$out = \Image::getHtml(Image::get('bundles/jonnysppannorama/images/hotspot_big.svg', 32, 32, 'center'), '', 'style="float:left;"') . ' ' . $out;
+			$out = '<img src="bundles/jonnysppannorama/images/hotspot_big.svg" style="float:left;" />'. $out;
 		}elseif ($arrRow['type'] == 'info') {
-			$out = \Image::getHtml(Image::get('bundles/jonnysppannorama/images/information_big.svg', 32, 32, 'center'), '', 'style="float:left;"') . ' ' . $out;
+			$out = '<img src="bundles/jonnysppannorama/images/information_big.svg" style="float:left;" />'. $out;
 		}
 
 

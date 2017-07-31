@@ -41,44 +41,33 @@ class PannoramaTargetPositionSelector extends \Widget
 						$panelsizewidth = $file->imageSize[0] / 4;
 						if ($panelsizeheight == $panelsizewidth){
 
-
 							// New syntax
-							$container = System::getContainer();
-							$rootDir = $container->getParameter('kernel.project_dir');
-							$image = $container->get('contao.image.image_factory')->create($rootDir.'/'.$filemodel->path,NULL);
-							$resizer = new Resizer($rootDir.'/assets/images/');
-
-
+							$image = System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . $filemodel->path , '');
+							$resizer = new Resizer(TL_ROOT . '/assets/images/');
+							
 							//front
 							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
-							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
-							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP), new ResizeOptions())->getUrl(TL_ROOT);
 
 							//right
 							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth*2,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
-							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
-							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP), new ResizeOptions())->getUrl(TL_ROOT);
 
 							//back
 							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth*3,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
-							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
-							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP), new ResizeOptions())->getUrl(TL_ROOT);
 
 							//left
 							$image->setImportantPart(new ImportantPart(new Point(0,$panelsizewidth),New Box($panelsizewidth,$panelsizewidth)));
-							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
-							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP), new ResizeOptions())->getUrl(TL_ROOT);
 
 							//up
 							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,0),New Box($panelsizewidth,$panelsizewidth)));
-							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
-							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP), new ResizeOptions())->getUrl(TL_ROOT);
 
 							//down
 							$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,$panelsizewidth*2),New Box($panelsizewidth,$panelsizewidth)));
-							$resizeconfig = (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP);
-							$cubemap[] = \Environment::get('base').$resizer->resize($image, $resizeconfig, new ResizeOptions())->getUrl($rootDir);
-							
+							$cubemap[] = \Environment::get('base').$resizer->resize($image, (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP), new ResizeOptions())->getUrl(TL_ROOT);
 
 							$config['cubeMap'] = $cubemap;
 							unset($cubemap);

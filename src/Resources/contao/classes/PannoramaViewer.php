@@ -26,12 +26,11 @@ class PannoramaViewer extends \ContentElement
 				$objTemplate->title =  $objPannorama->title;
 
 
-
+				//build config
 		 		$config['default']['firstScene'] = $objPannorama->firstScene;
 		        $config['default']['sceneFadeDuration'] = intval($objPannorama->sceneFadeDuration);
 		        $config['default']['autoLoad'] = boolval($objPannorama->autoLoad);
 
-			
 				if (boolval($objPannorama->autoLoad) == false){
 					$config['default']['preview'] = \Environment::get('base').\FilesModel::findByPk($objPannorama->preview)->path;
 					$config['default']['loadButtonLabel'] = $objPannorama->loadButtonLabel;
@@ -105,7 +104,6 @@ class PannoramaViewer extends \ContentElement
 										$image->setImportantPart(new ImportantPart(new Point($panelsizewidth,$panelsizewidth*2),New Box($panelsizewidth,$panelsizewidth)));
 										$cubemap[] = \Environment::get('base').$resizer->resize($image, (new ResizeConfiguration())->setWidth($panelsizewidth)->setHeight($panelsizewidth)->setZoomLevel(100)->setMode(ResizeConfiguration::MODE_CROP), new ResizeOptions())->getUrl(TL_ROOT);
 									
-
 										$config['scenes'][$value->id]['cubeMap'] = $cubemap;
 										unset($cubemap);
 									}
@@ -124,7 +122,6 @@ class PannoramaViewer extends \ContentElement
 								$config['scenes'][$value->id]['cubeMap'] = $cubemap;
 								unset($cubemap);
 						        break;
-
 						}
 
 						if (boolval($value->autoRotateOn) == true){
@@ -158,16 +155,13 @@ class PannoramaViewer extends \ContentElement
 								$hotspot['yaw'] = floatval($tempposition[1]);
 								$hotspot['type'] = $hotvalue->type;
 								$hotspot['text'] = $hotvalue->title;
-								if ($hotvalue->cssClass <> ''){
-									$hotspot['cssClass']= $hotvalue->cssClass;
-								}		
+								$hotspot['cssClass'] = $hotvalue->type.'_spot';
+
 								if ($hotvalue->type == 'scene'){ 
 									$hotspot['sceneId'] = $hotvalue->sceneId;
 									$hotspot['targetPitch'] = floatval($temptargetposition[0]);
 									$hotspot['targetYaw'] = floatval($temptargetposition[1]);
 									$hotspot['targetHfov'] = intval($temptargetposition[2]);
-								}elseif ($hotvalue->type == 'info' && $hotvalue->url <> '') { 
-									$hotspot['URL'] = $hotvalue->url; 
 								}
 				
 								$config['scenes'][$value->id]['hotSpots'][]= $hotspot;
@@ -179,7 +173,7 @@ class PannoramaViewer extends \ContentElement
 			        }
 				}
 
-				$objTemplate->wildcard = '</br></br><div style="height:400px;" id="panorama'. $this->id.'"></div>'."<script>pannellum.viewer('panorama". $this->id."',". json_encode($config) .');</script>';
+				$objTemplate->wildcard = '</br></br><div style="height:400px;" id="panorama'. $this->id.'" class="tl_text"></div></br>'."<script type=".'"text/javascript"'.">pannellum.viewer('panorama". $this->id."',". json_encode($config) .');</script>';
 
 				unset($config);
 				return $objTemplate->parse();	
@@ -187,14 +181,6 @@ class PannoramaViewer extends \ContentElement
 		}
 		return parent::generate();
 	}//end generate
-
-
-
-
-
-
-
-
 
 
 

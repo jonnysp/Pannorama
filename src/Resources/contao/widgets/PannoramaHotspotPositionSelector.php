@@ -127,7 +127,6 @@ class PannoramaHotspotPositionSelector extends \Widget
 					$hotspot['type'] = 'info';
 					$hotspot['text'] = $hotvalue->title;
 					$hotspot['cssClass'] = $hotvalue->type.'_spot';
-					//$hotspot['URL'] = 'contao/main.php?do=Pannorama&table=tl_pannorama_hotspot&act=edit&id='.$hotvalue->id.'&rt='.\RequestToken::get();
 					$config['hotSpots'][] = $hotspot;
 					unset($hotspot);
 				}

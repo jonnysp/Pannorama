@@ -171,7 +171,7 @@ class PannoramaScenePositionSelector extends \Widget
 			$arrFields[] = sprintf('<input type="text" name="%s[]" id="ctrl_%s" class="tl_text_3" value="%s" %s onfocus="Backend.getScrollOffset()">',
 									$this->strName,
 									$this->strId.'_'.$i,
-									specialchars(@$this->varValue[$i]), // see #4979
+									StringUtil::specialchars(@$this->varValue[$i]),
 									$this->getAttributes());
 		}
 

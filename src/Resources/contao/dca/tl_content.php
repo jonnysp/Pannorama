@@ -6,18 +6,14 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pannoramaviewer'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['pannorama_viewer'],
 	'inputType'               => 'select',
-	'options_callback'        => array('DataContainerPannorama', 'getPannorama'),
+	'options_callback'        => array('tl_content_pannorama', 'getPannorama'),
 	'eval'                    => array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true),
-	'wizard' => array
-	(
-			array('DataContainerPannorama', 'editPannorama')
-	),
+	'wizard' 				  => array(array('tl_content_pannorama', 'editPannorama')),
 	'sql'                     => "int(10) unsigned NOT NULL default '0'"
-
 );
 
 
-class DataContainerPannorama extends Backend 
+class tl_content_pannorama extends Backend 
 {
 
 	public function getPannorama()

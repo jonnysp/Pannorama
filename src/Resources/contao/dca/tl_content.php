@@ -23,7 +23,7 @@ class tl_content_pannorama extends Backend
 		if (isset($objCats)) {
 			foreach ($objCats as $objCat)
 			{
-				$arrCats[$objCat->id] =  $objCat->title .' (ID ' . $objCat->id . ')';
+				$arrCats[$objCat->id] = '[ID ' . $objCat->id . '] - '. $objCat->title;
 			}
 		}
 		return $arrCats;
@@ -32,6 +32,7 @@ class tl_content_pannorama extends Backend
 	public function editPannorama(DataContainer $dc)
 	{
 		$this->loadLanguageFile('tl_pannorama');
+		//return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=Pannorama&amp;act=edit&amp;id=' . $dc->value . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(specialchars($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1]), $dc->value) . '" style="padding-left:3px" onclick="Backend.openModalIframe({\'width\':768,\'title\':\'' . specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1], $dc->value))) . '\',\'url\':this.href});return false">' . Image::getHtml('alias.gif', $GLOBALS['TL_LANG']['tl_pannorama']['edit'][0], 'style="vertical-align:top"') . '</a>';
 		return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=pannorama&amp;act=edit&amp;id=' . $dc->value . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1]), $dc->value) . '" onclick="Backend.openModalIframe({\'title\':\'' . StringUtil::specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1], $dc->value))) . '\',\'url\':this.href});return false">' . Image::getHtml('alias.svg', $GLOBALS['TL_LANG']['tl_pannorama']['edit'][0]) . '</a>';
 	}
 

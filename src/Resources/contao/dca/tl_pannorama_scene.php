@@ -343,33 +343,48 @@ class tl_pannorama_scene extends Backend{
 		switch ($arrRow['type']) {
 
 		    case 'equirectangular':
-				$label = \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl(TL_ROOT),'','style="float:left;"'). $label;
+				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
+				if ($imagefile->exists()){
+					$label = \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl(TL_ROOT),'','style="float:left;"'). $label;
+				}
 				break;
 		    case 'cubemap_single':
-				$label = \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl(TL_ROOT),'','style="float:left;"'). $label;
+				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
+				if ($imagefile->exists()){
+					$label = \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl(TL_ROOT),'','style="float:left;"'). $label;
+				}
 		        break;
 		    case 'cubemap_multi':
 				$resizeconfig =	(new ResizeConfiguration())->setWidth(50)->setHeight(50)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100);
+
+				$imagepaup = new \File(\FilesModel::findByUuid($arrRow['panoramaup'])->path,true);
+				$imageleft = new \File(\FilesModel::findByUuid($arrRow['panoramaleft'])->path,true);
+				$imagefront = new \File(\FilesModel::findByUuid($arrRow['panoramafront'])->path,true);
+				$imageright = new \File(\FilesModel::findByUuid($arrRow['panoramaright'])->path,true);
+				$imageback = new \File(\FilesModel::findByUuid($arrRow['panoramaback'])->path,true);
+				$imagedown = new \File(\FilesModel::findByUuid($arrRow['panoramadown'])->path,true);
+
 		        $label = '<table border="0" style="float:left;height:150px;width:200px;">
 					<tr>
 					  <td style="font-size:0px;">&nbsp;</td>
-					  <td style="font-size:0px;">'.\Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaup'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') .'</td>
+					  <td style="font-size:0px;">'. ($imagepaup->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaup'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>
 					<tr>
-					  <td style="font-size:0px;">'.\Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaleft'])->path), $resizeconfig )->getUrl(TL_ROOT),'','').'</td>
-					  <td style="font-size:0px;">'.\Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramafront'])->path), $resizeconfig )->getUrl(TL_ROOT),'','').'</td>
-					  <td style="font-size:0px;">'.\Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaright'])->path), $resizeconfig )->getUrl(TL_ROOT),'','').'</td>
-					  <td style="font-size:0px;">'.\Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaback'])->path), $resizeconfig )->getUrl(TL_ROOT),'','').'</td>
+					  <td style="font-size:0px;">'.($imageleft->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaleft'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imagefront->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramafront'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageright->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaright'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageback->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaback'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
 					</tr>
 					<tr>
 					  <td style="font-size:0px;">&nbsp;</td>
-					  <td style="font-size:0px;">'.\Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramadown'])->path),  $resizeconfig )->getUrl(TL_ROOT),'','').'</td>
+					  <td style="font-size:0px;">'.($imagedown->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramadown'])->path),  $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>
 					</table>'.' '.$label;
+		        
 		        break;
 		}
 		return $label;

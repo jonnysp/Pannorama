@@ -186,17 +186,23 @@ class PannoramaViewer extends \ContentElement
 
 	protected function compile(){
 
+
 		$GLOBALS['TL_CSS'][] = 		  'bundles/jonnysppannorama/pannellum.css';
 		$GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jonnysppannorama/pannellum.js';
-		
+
 
 		$objPannorama = \PannoramaModel::findByPK($this->pannoramaviewer);
 		
+        //translation
+		if (file_exists('bundles/jonnysppannorama/'.strtoupper($GLOBALS['TL_LANGUAGE']).'.json')) {
+			$config['default']['strings'] = json_decode(file_get_contents('bundles/jonnysppannorama/'.strtoupper($GLOBALS['TL_LANGUAGE']).'.json'), true);
+		}
+
  		$config['default']['firstScene'] = $objPannorama->firstScene;
         $config['default']['sceneFadeDuration'] = intval($objPannorama->sceneFadeDuration);
         $config['default']['autoLoad'] = boolval($objPannorama->autoLoad);
 
-	
+
 		if (boolval($objPannorama->autoLoad) == false){
 			$config['default']['preview'] = \Environment::get('base').\FilesModel::findByPk($objPannorama->preview)->path;
 			$config['default']['loadButtonLabel'] = $objPannorama->loadButtonLabel;

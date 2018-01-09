@@ -330,6 +330,10 @@ class tl_pannorama_scene extends Backend{
 	public function generateReferenzRow($arrRow)	{
 		$this->loadLanguageFile('tl_pannorama_scene');
 
+		$container = System::getContainer();
+		$rootDir = $container->getParameter('kernel.project_dir');
+
+
 		$label = '<table style="margin-left:210px;" class="tl_header_table">
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['title'][0].':</span></th><th>'.$arrRow['title']. '</th></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['type'][0].':</span></th><td>'.$GLOBALS['TL_LANG']['tl_pannorama_scene'][$arrRow['type']][0]. '</td></tr>	
@@ -345,13 +349,13 @@ class tl_pannorama_scene extends Backend{
 		    case 'equirectangular':
 				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
 				if ($imagefile->exists()){
-					$label = \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl(TL_ROOT),'','style="float:left;"'). $label;
+					$label = \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
 				}
 				break;
 		    case 'cubemap_single':
 				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
 				if ($imagefile->exists()){
-					$label = \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl(TL_ROOT),'','style="float:left;"'). $label;
+					$label = \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
 				}
 		        break;
 		    case 'cubemap_multi':
@@ -367,19 +371,19 @@ class tl_pannorama_scene extends Backend{
 		        $label = '<table border="0" style="float:left;height:150px;width:200px;">
 					<tr>
 					  <td style="font-size:0px;">&nbsp;</td>
-					  <td style="font-size:0px;">'. ($imagepaup->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaup'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'. ($imagepaup->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaup'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>
 					<tr>
-					  <td style="font-size:0px;">'.($imageleft->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaleft'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
-					  <td style="font-size:0px;">'.($imagefront->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramafront'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
-					  <td style="font-size:0px;">'.($imageright->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaright'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
-					  <td style="font-size:0px;">'.($imageback->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaback'])->path), $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageleft->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaleft'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imagefront->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramafront'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageright->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaright'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageback->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaback'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
 					</tr>
 					<tr>
 					  <td style="font-size:0px;">&nbsp;</td>
-					  <td style="font-size:0px;">'.($imagedown->exists() == true ? \Image::getHtml(\System::getContainer()->get('contao.image.image_factory')->create(TL_ROOT . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramadown'])->path),  $resizeconfig )->getUrl(TL_ROOT),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imagedown->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramadown'])->path),  $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>

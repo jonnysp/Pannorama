@@ -112,7 +112,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
     'subpalettes' => array (
         'compass'            => 'northOffset',
         'autoRotateOn'		 => 'autoRotate,autoRotateInactivityDelay',
-        'showTitle'			 =>'author'
+        'showTitle'			 => 'author'
     ),
 
 	// Fields

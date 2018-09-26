@@ -158,7 +158,7 @@ class PannoramaScenePositionSelector extends \Widget
 				'.$pannoname.'_hfov = document.getElementById("ctrl_'.$this->strId.'_2");
 				'.$pannoname.'viewer = pannellum.viewer("'.$pannoname .'_canvas", 
 				'.json_encode($config).'
-				).on("mouseup", '.$pannoname .'set).on("mousedown", '.$pannoname .'set);
+				).on("mouseup", '.$pannoname .'set).on("mousedown", '.$pannoname .'set).on("zoomchange", '.$pannoname .'set);
 
 			}
 

@@ -157,7 +157,7 @@ class PannoramaHotspotPositionSelector extends \Widget
 				'.$pannoname.'_yaw = document.getElementById("ctrl_'.$this->strId.'_1");
 				'.$pannoname.'viewer = pannellum.viewer("'.$pannoname .'_canvas", 
 				'.json_encode($config).'
-				).on("mouseup", '.$pannoname .'set).on("mousedown", '.$pannoname .'set);
+				).on("mouseup", '.$pannoname .'set).on("mousedown", '.$pannoname .'set).on("zoomchange", '.$pannoname .'set);
 			}
 			</script>';
 

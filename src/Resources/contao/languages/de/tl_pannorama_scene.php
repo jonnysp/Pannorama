@@ -17,6 +17,8 @@ $GLOBALS['TL_LANG']['tl_pannorama_scene']['maxHfov'] = array('maximale Vergröß
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['showZoomCtrl'] = array('Zoom Steuerung anzeigen','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['showFullscreenCtrl'] = array('Vollbild Steuerung anzeigen','');
 
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['draggable'] = array('Mit Maus oder Touch bewegen','');
+
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['compass'] = array('Kompass anzeigen','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['northOffset'] = array('Kompass Offset','');
 

@@ -149,6 +149,8 @@ class PannoramaViewer extends \ContentElement
 						$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
 						$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
 
+						$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
+
 						//Hotspots
 						if(\PannoramaHotspotModel::countBy('pid', $value->id) > 0){
 							foreach (\PannoramaHotspotModel::findByPid($value->id) as $hotkey => $hotvalue){
@@ -324,6 +326,8 @@ class PannoramaViewer extends \ContentElement
 	        	$config['scenes'][$value->id]['mouseZoom'] = boolval($value->mouseZoom);
 				$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
 				$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
+
+				$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
 
 				//Hotspots
 				if(\PannoramaHotspotModel::countBy('pid', $value->id) > 0){

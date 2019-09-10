@@ -11,6 +11,13 @@ $GLOBALS['TL_LANG']['tl_pannorama_scene']['position'] = array('Start Position','
 
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['keyboardZoom'] = array('mit Tastatur vergrößern','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['mouseZoom'] = array('mit Maus vergrößern','');
+
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['true'] = array('Ja','');
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['false'] = array('Nein','');
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['fullscreenonly'] = array('nur bei Vollbild','');
+
+
+
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['minHfov'] = array('minimale Vergrößerung','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['maxHfov'] = array('maximale Vergrößerung','');
 

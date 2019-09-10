@@ -138,7 +138,7 @@ class PannoramaViewer extends \ContentElement
 						$config['scenes'][$value->id]['northOffset'] =  intval($value->northOffset);
 
 						$config['scenes'][$value->id]['keyboardZoom'] = boolval($value->keyboardZoom);
-			        	$config['scenes'][$value->id]['mouseZoom'] = boolval($value->mouseZoom);
+			        	$config['scenes'][$value->id]['mouseZoom'] = $value->mouseZoom;
 						$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
 						$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
 
@@ -316,7 +316,7 @@ class PannoramaViewer extends \ContentElement
 				$config['scenes'][$value->id]['northOffset'] =  intval($value->northOffset);
 
 				$config['scenes'][$value->id]['keyboardZoom'] = boolval($value->keyboardZoom);
-	        	$config['scenes'][$value->id]['mouseZoom'] = boolval($value->mouseZoom);
+	        	$config['scenes'][$value->id]['mouseZoom'] = $value->mouseZoom;
 				$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
 				$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
 

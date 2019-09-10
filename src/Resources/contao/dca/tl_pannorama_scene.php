@@ -179,10 +179,11 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 		'mouseZoom' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['mouseZoom'],
-			'inputType'               => 'checkbox',
-			'isBoolean'				  => true,
+			'inputType'               => 'select',
+			'options'                 => array('true','false','fullscreenonly'),
+			'reference'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene'],
 			'eval'                    => array( 'tl_class'=>'w50'),
-			'sql'                     => "char(1) NOT NULL default '1'"
+			'sql'                     => "varchar(128) NOT NULL default 'true'"
 		),
 		'showZoomCtrl' => array
 		(

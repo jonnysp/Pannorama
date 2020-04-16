@@ -10,6 +10,7 @@ $GLOBALS['TL_LANG']['tl_pannorama_scene']['panorama'] = array('Panorama','wähle
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['position'] = array('Start Position','');
 
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['keyboardZoom'] = array('mit Tastatur vergrößern','');
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['doubleClickZoom'] = array('mit Doppelklick vergrößern','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['mouseZoom'] = array('mit Maus vergrößern','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['true'] = array('Ja','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['false'] = array('Nein','');

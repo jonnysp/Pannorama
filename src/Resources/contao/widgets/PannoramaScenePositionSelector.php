@@ -89,6 +89,8 @@ class PannoramaScenePositionSelector extends \Widget
     	$config['pitch'] = floatval($this->varValue[0]);
 		$config['yaw'] = floatval($this->varValue[1]);
 		$config['hfov'] = intval($this->varValue[2]);
+	
+	    $config['doubleClickZoom'] = boolval($startscene->doubleClickZoom);
     	$config['hotSpotDebug'] = true;
 		$config['compass'] = boolval($startscene->compass);
 		$config['northOffset'] =  intval($startscene->northOffset);

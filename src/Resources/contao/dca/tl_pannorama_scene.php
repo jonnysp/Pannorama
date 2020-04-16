@@ -102,10 +102,10 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 	'palettes' => array
 	(
 		'__selector__'    => array('type','showTitle','compass','autoRotateOn'),
-		'default'         => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
-		'equirectangular' => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
-		'cubemap_single'  => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
-		'cubemap_multi'   => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown;position;'
+		'default'         => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
+		'equirectangular' => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
+		'cubemap_single'  => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
+		'cubemap_multi'   => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown;position;'
 	),
 
     // Subpalettes
@@ -168,21 +168,35 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'eval'                    => array( 'maxlength'=>128, 'tl_class'=>'w50'),
 			'sql'                     => "varchar(128) NOT NULL default ''"
 		),
+
 		'keyboardZoom' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['keyboardZoom'],
+			'default'				  => true,
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
-			'eval'                    => array( 'tl_class'=>'w50'),
+			'eval'                    => array( 'submitOnChange' => true,'tl_class'=>'w100'),
 			'sql'                     => "char(1) NOT NULL default '1'"
 		),
+
+		'doubleClickZoom' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['doubleClickZoom'],
+			'default'				  => true,
+			'inputType'               => 'checkbox',
+			'isBoolean'				  => true,
+			'eval'                    => array( 'submitOnChange' => true,'tl_class'=>'w100'),
+			'sql'                     => "char(1) NOT NULL default '1'"
+		),
+
+
 		'mouseZoom' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['mouseZoom'],
 			'inputType'               => 'select',
 			'options'                 => array('true','false','fullscreenonly'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_pannorama_scene'],
-			'eval'                    => array( 'tl_class'=>'w50'),
+			'eval'                    => array( 'tl_class'=>'w100'),
 			'sql'                     => "varchar(128) NOT NULL default 'true'"
 		),
 		'showZoomCtrl' => array

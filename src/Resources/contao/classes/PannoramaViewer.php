@@ -136,12 +136,11 @@ class PannoramaViewer extends \ContentElement
 
 						$config['scenes'][$value->id]['compass'] = boolval($value->compass);
 						$config['scenes'][$value->id]['northOffset'] =  intval($value->northOffset);
-
 						$config['scenes'][$value->id]['keyboardZoom'] = boolval($value->keyboardZoom);
 			        	$config['scenes'][$value->id]['mouseZoom'] = $value->mouseZoom;
 						$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
 						$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
-
+						$config['scenes'][$value->id]['doubleClickZoom'] = boolval($value->doubleClickZoom);
 						$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
 
 						//Hotspots
@@ -314,12 +313,11 @@ class PannoramaViewer extends \ContentElement
 
 				$config['scenes'][$value->id]['compass'] = boolval($value->compass);
 				$config['scenes'][$value->id]['northOffset'] =  intval($value->northOffset);
-
 				$config['scenes'][$value->id]['keyboardZoom'] = boolval($value->keyboardZoom);
 	        	$config['scenes'][$value->id]['mouseZoom'] = $value->mouseZoom;
 				$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
 				$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
-
+				$config['scenes'][$value->id]['doubleClickZoom'] = boolval($value->doubleClickZoom);
 				$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
 
 				//Hotspots

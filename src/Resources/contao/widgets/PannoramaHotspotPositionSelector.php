@@ -96,6 +96,8 @@ class PannoramaHotspotPositionSelector extends \Widget
     	$config['hotSpotDebug'] = true;
     	$config['compass'] = boolval($startscene->compass);
 		$config['northOffset'] =  intval($startscene->northOffset);
+		$config['doubleClickZoom'] = boolval($startscene->doubleClickZoom);
+
 		
 		if (boolval($startscene->showZoomCtrl) == true || boolval($startscene->showFullscreenCtrl) == true) {
 			$config['showControls'] = true;

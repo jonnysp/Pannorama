@@ -11,13 +11,22 @@
 /**
  * Back end modules
  */
-array_insert($GLOBALS['BE_MOD']['content'], 100, array
+array_insert($GLOBALS['BE_MOD']['pannorama'], 100, array
 (
 	'pannorama' => array
 	(
 		'tables' => array('tl_pannorama', 'tl_pannorama_scene','tl_pannorama_hotspot')
 	)
 ));
+
+/**
+ * Style sheet
+ */
+if (TL_MODE == 'BE')
+{
+	$GLOBALS['TL_CSS'][] = 'bundles/jonnysppannorama/pannorama.css|static';
+}
+
 
 /**
  * Front end modules

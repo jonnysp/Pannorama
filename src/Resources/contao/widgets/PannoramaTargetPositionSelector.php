@@ -113,21 +113,24 @@ class PannoramaTargetPositionSelector extends \Widget
 			}
 		}
 		
-    	if(\PannoramaHotspotModel::countBy('pid', $startscene->id) > 0){
-			foreach (\PannoramaHotspotModel::findByPid($startscene->id) as $hotkey => $hotvalue){
-				if ($selfspot <> $hotvalue){
-					$tempposition = unserialize($hotvalue->position);
-					$hotspot['pitch'] = floatval($tempposition[0]); 
-					$hotspot['yaw'] = floatval($tempposition[1]);
-					$hotspot['type'] = 'info';
-					$hotspot['text'] = $hotvalue->title;
-					$hotspot['cssClass'] = $hotvalue->type.'_spot';
-					//$hotspot['URL'] = 'contao/main.php?do=Pannorama&table=tl_pannorama_hotspot&act=edit&id='.$hotvalue->id.'&rt='.\RequestToken::get();
-					$config['hotSpots'][] = $hotspot;
-					unset($hotspot);
+
+		if(isset($startscene->id) && !empty($startscene->id)){
+			if(\PannoramaHotspotModel::countBy('pid', $startscene->id) > 0){
+				foreach (\PannoramaHotspotModel::findByPid($startscene->id) as $hotkey => $hotvalue){
+					if ($selfspot <> $hotvalue){
+						$tempposition = unserialize($hotvalue->position);
+						$hotspot['pitch'] = floatval($tempposition[0]); 
+						$hotspot['yaw'] = floatval($tempposition[1]);
+						$hotspot['type'] = 'info';
+						$hotspot['text'] = $hotvalue->title;
+						$hotspot['cssClass'] = $hotvalue->type.'_spot';
+						//$hotspot['URL'] = 'contao/main.php?do=Pannorama&table=tl_pannorama_hotspot&act=edit&id='.$hotvalue->id.'&rt='.\RequestToken::get();
+						$config['hotSpots'][] = $hotspot;
+						unset($hotspot);
+					}
 				}
 			}
-    	}
+		}
 
 		$pannoname = 'pannoramatarget'.$this->__get('currentRecord');
 	

@@ -1,12 +1,10 @@
 <?php
 
 /*
- * This file is part of Contao.
- *
- * Copyright (c) 2005-2017 Leo Feyer
+ * Copyright (c) 2005-2024 Jonny Spitzner
  *
  * @license LGPL-3.0+
- */
+*/
 
 namespace Jonnysp\Pannorama\ContaoManager;
 
@@ -16,11 +14,7 @@ use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 
-/**
- * Plugin for the Contao Manager.
- *
- * @author Andreas Schempp <https://github.com/aschempp>
- */
+
 class Plugin implements BundlePluginInterface
 {
     /**

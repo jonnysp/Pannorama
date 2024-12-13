@@ -1,6 +1,17 @@
 <?php
+use Contao\Widget;
+use Contao\System;
+use Contao\StringUtil;
+use Contao\FilesModel;
+use Contao\File;
+use Contao\Image;
+use Contao\Image\ResizeConfiguration;
+use Contao\Image\ResizeOptions;
+use Pannorama\Model\PannoramaSceneModel;
+use Pannorama\Model\PannoramaHotspotModel;
+use Contao\Image\ImportantPart;
 
-class PannoramaTargetPositionSelector extends \Widget
+class PannoramaTargetPositionSelector extends Widget
 {
 
 	protected $strTemplate = 'be_widget';
@@ -17,52 +28,61 @@ class PannoramaTargetPositionSelector extends \Widget
 		$container = System::getContainer();
 		$rootDir = $container->getParameter('kernel.project_dir');
 
-		$selfspot = \PannoramaHotspotModel::findByPk($this->__get('currentRecord'));
-		$startscene = \PannoramaSceneModel::findByPk($selfspot->sceneId);
+		$selfspot = PannoramaHotspotModel::findByPk($this->__get('currentRecord'));
+		$startscene = PannoramaSceneModel::findByPk($selfspot->sceneId);
 
 		//config
-
 		switch ($startscene->type) {
 		    case 'equirectangular':
 				$config['type'] = 'equirectangular';
-				$config['panorama'] = \Environment::get('base').\FilesModel::findByPk($startscene->panorama)->path;
+				$config['panorama'] = FilesModel::findByPk($startscene->panorama)->path;
 		        break;
 		    case 'cubemap_single':
-		    	$config['type'] = 'cubemap';
-				$filemodel = \FilesModel::findByPk($startscene->panorama);
+				$config['type'] = 'cubemap';
+				$filemodel = FilesModel::findByPk($startscene->panorama);
 				if (isset($filemodel)){
-					$file = new \File($filemodel->path);
+					$file = new File($filemodel->path);
 					if ($file->isImage && $file->isGdImage){
 						$panelsizeheight = $file->imageSize[1] / 3;
 						$panelsizewidth = $file->imageSize[0] / 4;
 						if ($panelsizeheight == $panelsizewidth){
+							
+							$cubemap = array();
 
-							$image = new Image($file);
-							$image->setTargetWidth($panelsizewidth)->setTargetHeight($panelsizeheight)->setResizeMode('crop')->setZoomLevel(100);
+							$resizeconfig =	(new ResizeConfiguration())
+											->setWidth($panelsizewidth)
+											->setHeight($panelsizeheight)
+											->setMode(ResizeConfiguration::MODE_CROP)
+											->setZoomLevel(100);
+
+							$image = System::getContainer()
+									->get('contao.image.factory')
+									->create($rootDir . '/' . $filemodel
+									->cloneOriginal()->path);
 
 							//front
-							$image->setImportantPart(array('x' => $panelsizewidth,'y' => $panelsizeheight,'width' => $panelsizewidth,'height' => $panelsizeheight))->executeResize();
-							$cubemap[]=$image->getResizedPath();
+							$image->setImportantPart( new ImportantPart(0.25, 0.333333333333333 , 0.25 , 0.333333333333333 ));
+							$cubemap[] = System::getContainer()->get('contao.image.resizer')->resize($image,$resizeconfig,new ResizeOptions())->getUrl($rootDir);
 
 							//right
-							$image->setImportantPart(array('x' => $panelsizewidth*2,'y' => $panelsizeheight,'width' => $panelsizewidth,'height' => $panelsizeheight))->executeResize();
-							$cubemap[]=$image->getResizedPath();
+							$image->setImportantPart( new ImportantPart(0.5, 0.333333333333333 , 0.25 , 0.333333333333333 ));
+							$cubemap[] = System::getContainer()->get('contao.image.resizer')->resize($image,$resizeconfig,new ResizeOptions())->getUrl($rootDir);
 
 							//back
-							$image->setImportantPart(array('x' => $panelsizewidth*3,'y' => $panelsizeheight,'width' => $panelsizewidth,'height' => $panelsizeheight))->executeResize();
-							$cubemap[]=$image->getResizedPath();
+							$image->setImportantPart( new ImportantPart(0.75, 0.333333333333333 , 0.25, 0.333333333333333 ));
+							$cubemap[] = System::getContainer()->get('contao.image.resizer')->resize($image,$resizeconfig,new ResizeOptions())->getUrl($rootDir);
 
 							//left
-							$image->setImportantPart(array('x' => 0,'y' => $panelsizeheight,'width' => $panelsizewidth,'height' => $panelsizeheight))->executeResize();
-							$cubemap[]=$image->getResizedPath();
+							$image->setImportantPart( new ImportantPart(0, 0.333333333333333 , 0.25, 0.333333333333333 ));
+							$cubemap[]=  System::getContainer()->get('contao.image.resizer')->resize($image,$resizeconfig,new ResizeOptions())->getUrl($rootDir);
 
-							//up
-							$image->setImportantPart(array('x' => $panelsizewidth,'y' => 0,'width' => $panelsizewidth,'height' => $panelsizeheight))->executeResize();
-							$cubemap[]=$image->getResizedPath();
+							//top
+							$image->setImportantPart( new ImportantPart(0.25, 0, 0.25, 0.333333333333333 ));
+							$cubemap[] = System::getContainer()->get('contao.image.resizer')->resize($image,$resizeconfig,new ResizeOptions())->getUrl($rootDir);
 
-							//down
-							$image->setImportantPart(array('x' => $panelsizewidth,'y' => $panelsizeheight*2,'width' => $panelsizewidth,'height' => $panelsizeheight))->executeResize();
-							$cubemap[]=$image->getResizedPath();
+							//bottom
+							$image->setImportantPart( new ImportantPart(0.25, 0.666666666666666 , 0.25, 0.333333333333333 ));
+							$cubemap[] = System::getContainer()->get('contao.image.resizer')->resize($image,$resizeconfig,new ResizeOptions())->getUrl($rootDir);
 
 							$config['cubeMap'] = $cubemap;
 							unset($cubemap);
@@ -72,19 +92,30 @@ class PannoramaTargetPositionSelector extends \Widget
 						}
 					}
 				}
+
 		        break;
+
 		    case 'cubemap_multi':
+
 				$config['type'] = 'cubemap';
 				//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
-				$config['cubeMap']	= array(
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramafront)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaright)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaback)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaleft)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaup)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramadown)->path
-				);
-		        break;
+				
+				if(
+					($startscene->panoramafront !== null) && ($startscene->panoramaright !== null) && ($startscene->panoramaback !== null) &&
+					($startscene->panoramaleft !== null) && ($startscene->panoramaup !== null) && ($startscene->panoramadown !== null) 
+				){
+					$config['cubeMap']	= array(
+						FilesModel::findByPk($startscene->panoramafront)->path,
+						FilesModel::findByPk($startscene->panoramaright)->path,
+						FilesModel::findByPk($startscene->panoramaback)->path,
+						FilesModel::findByPk($startscene->panoramaleft)->path,
+						FilesModel::findByPk($startscene->panoramaup)->path,
+						FilesModel::findByPk($startscene->panoramadown)->path
+					);
+				}
+
+
+	        break;
 		}
 
 		$config['autoLoad'] = true;
@@ -115,8 +146,8 @@ class PannoramaTargetPositionSelector extends \Widget
 		
 
 		if(isset($startscene->id) && !empty($startscene->id)){
-			if(\PannoramaHotspotModel::countBy('pid', $startscene->id) > 0){
-				foreach (\PannoramaHotspotModel::findByPid($startscene->id) as $hotkey => $hotvalue){
+			if(PannoramaHotspotModel::countBy('pid', $startscene->id) > 0){
+				foreach (PannoramaHotspotModel::findByPid($startscene->id) as $hotkey => $hotvalue){
 					if ($selfspot <> $hotvalue){
 						$tempposition = unserialize($hotvalue->position);
 						$hotspot['pitch'] = floatval($tempposition[0]); 
@@ -124,7 +155,7 @@ class PannoramaTargetPositionSelector extends \Widget
 						$hotspot['type'] = 'info';
 						$hotspot['text'] = $hotvalue->title;
 						$hotspot['cssClass'] = $hotvalue->type.'_spot';
-						//$hotspot['URL'] = 'contao/main.php?do=Pannorama&table=tl_pannorama_hotspot&act=edit&id='.$hotvalue->id.'&rt='.\RequestToken::get();
+						//$hotspot['URL'] = System::getContainer()->get('router')->generate('contao_backend', array('do'=>'pannorama', 'table'=>'tl_pannorama_hotspot','act'=>'edit', 'id'=>$hotvalue->id));
 						$config['hotSpots'][] = $hotspot;
 						unset($hotspot);
 					}
@@ -132,30 +163,30 @@ class PannoramaTargetPositionSelector extends \Widget
 			}
 		}
 
-		$pannoname = 'pannoramatarget'.$this->__get('currentRecord');
+		$pannonama = 'pannoramatarget'.$this->__get('currentRecord');
 	
-		echo '<div class="tl_text" id="'.$pannoname .'_canvas" style="width:auto; height:300px;"></div><br>
+		echo '<div class="tl_text" id="'.$pannonama .'_canvas" style="width:auto; height:300px;"></div><br>
 			<script type="text/javascript">
 
-			var '.$pannoname.'viewer;
+			var '.$pannonama.'viewer;
 
 			window.addEvent("domready", function() {
-				'.$pannoname.'initialize();
+				'.$pannonama.'initialize();
 			});
 
-			function '.$pannoname .'set(){
-				'.$pannoname.'_pitch.set("value", '.$pannoname.'viewer.getPitch());
-				'.$pannoname.'_yaw.set("value", '.$pannoname.'viewer.getYaw());
-				'.$pannoname.'_hfov.set("value",'.$pannoname.'viewer.getHfov());         
+			function '.$pannonama .'set(){
+				'.$pannonama.'_pitch.set("value", '.$pannonama.'viewer.getPitch());
+				'.$pannonama.'_yaw.set("value", '.$pannonama.'viewer.getYaw());
+				'.$pannonama.'_hfov.set("value",'.$pannonama.'viewer.getHfov());         
 			};
 
-			function '.$pannoname .'initialize() {
-				'.$pannoname.'_pitch = document.getElementById("ctrl_'.$this->strId.'_0");
-				'.$pannoname.'_yaw = document.getElementById("ctrl_'.$this->strId.'_1");
-				'.$pannoname.'_hfov = document.getElementById("ctrl_'.$this->strId.'_2");
-				'.$pannoname.'viewer = pannellum.viewer("'.$pannoname .'_canvas", 
+			function '.$pannonama .'initialize() {
+				'.$pannonama.'_pitch = document.getElementById("ctrl_'.$this->strId.'_0");
+				'.$pannonama.'_yaw = document.getElementById("ctrl_'.$this->strId.'_1");
+				'.$pannonama.'_hfov = document.getElementById("ctrl_'.$this->strId.'_2");
+				'.$pannonama.'viewer = pannellum.viewer("'.$pannonama .'_canvas", 
 				'.json_encode($config).'
-				).on("mouseup", '.$pannoname .'set).on("mousedown", '.$pannoname .'set).on("zoomchange", '.$pannoname .'set);
+				).on("mouseup", '.$pannonama .'set).on("mousedown", '.$pannonama .'set).on("zoomchange", '.$pannonama .'set);
 			}
 			</script>';
 
@@ -178,5 +209,7 @@ class PannoramaTargetPositionSelector extends \Widget
 						(($this->strClass != '') ? ' class="' . $this->strClass . '"' : ''),
 						implode(' ', $arrFields),
 						$this->wizard);
+
+		return '';
 	}
 }

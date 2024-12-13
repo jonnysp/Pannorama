@@ -1,4 +1,10 @@
 <?php
+use Contao\System;
+use Pannorama\Model\PannoramaModel;
+use Contao\Backend;
+use Contao\DataContainer;
+use Contao\StringUtil;
+use Contao\Image;
 
 $GLOBALS['TL_DCA']['tl_content']['palettes']['pannorama_viewer'] = '{type_legend},type;{pannorama_legend},pannoramaviewer;{protected_legend:hide},protected;{expert_legend:hide},cssID,space;{invisible_legend:hide},invisible,start,stop';
 
@@ -12,27 +18,32 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['pannoramaviewer'] = array
 	'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
-
 class tl_content_pannorama extends Backend 
 {
 
-	public function getPannorama()
+	public function getPannorama(): array
 	{
-		$objCats =  \PannoramaModel::findAll();
-		$arrCats = array();
-		if (isset($objCats)) {
-			foreach ($objCats as $objCat)
+		$objPannos =  PannoramaModel::findAll();
+		$arrPannos = array();
+		if (isset($objPannos)) {
+			foreach ($objPannos as $objPanno)
 			{
-				$arrCats[$objCat->id] =  $objCat->title .' (ID ' . $objCat->id . ')';
+				$arrPannos[$objPanno->id] =  $objPanno->title .' (ID ' . $objPanno->id . ')';
 			}
 		}
-		return $arrCats;
+		return $arrPannos;
 	}
 
-	public function editPannorama(DataContainer $dc)
+	public function editPannorama(DataContainer $dc): string
 	{
+
 		$this->loadLanguageFile('tl_pannorama');
-		return ($dc->value < 1) ? '' : ' <a href="contao/main.php?do=pannorama&amp;act=edit&amp;id=' . $dc->value . '&amp;popup=1&amp;nb=1&amp;rt=' . REQUEST_TOKEN . '" title="' . sprintf(StringUtil::specialchars($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1]), $dc->value) . '" onclick="Backend.openModalIframe({\'title\':\'' . StringUtil::specialchars(str_replace("'", "\\'", sprintf($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1], $dc->value))) . '\',\'url\':this.href});return false">' . Image::getHtml('alias.svg', $GLOBALS['TL_LANG']['tl_pannorama']['edit'][0]) . '</a>';
+
+		$title = sprintf($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1], $dc->value);
+		$href = System::getContainer()->get('router')->generate('contao_backend', array('do'=>'pannorama', 'table'=>'tl_pannorama','act'=>'edit', 'id'=>$dc->value , 'popup'=>'1', 'nb'=>'1'));
+
+		return ' <a href="' . StringUtil::specialcharsUrl($href) . '" title="' . StringUtil::specialchars($title) . '" onclick="Backend.openModalIframe({\'title\':\'' . StringUtil::specialchars(str_replace("'", "\\'", $title)) . '\',\'url\':this.href});return false">' . Image::getHtml('alias.svg', $title) . '</a>';
+
 	}
 
 

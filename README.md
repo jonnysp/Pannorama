@@ -1,2 +1,2 @@
 # Pannorama
-Adds Pannorama functionality to Contao 4
+Adds Pannorama functionality to Contao 5

@@ -1,7 +1,3 @@
 #tl_navigation .group-pannorama{
     background: url(icons/pannorama.svg) 3px 2px no-repeat;
 }
-
-.pnlm-load-button{
-    background-color: rgba(0,0,0,.7) !important;
-}

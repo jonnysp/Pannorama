@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Fields
  */
@@ -20,7 +19,7 @@ $GLOBALS['TL_LANG']['tl_pannorama']['firstScene'] = array('Start Scene','');
  */
 $GLOBALS['TL_LANG']['tl_pannorama']['title_legend'] = 'Grundeinstellungen';
 $GLOBALS['TL_LANG']['tl_pannorama']['debug_legend'] = 'Debug';
-$GLOBALS['TL_LANG']['tl_pannorama']['preview_legend'] = 'Vorschau';
+
 $GLOBALS['TL_LANG']['tl_pannorama']['notcubemap'] = 'Bild ist kein Cubemap Format!';
 /**
  * Buttons

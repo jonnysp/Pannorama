@@ -1,9 +1,7 @@
 <?php
-namespace Pannorama\Model;
+namespace Contao;
 
-use Contao\Model;
-
-class PannoramaModel extends Model
+class PannoramaModel extends \Model
 {
     protected static $strTable = 'tl_pannorama';
 }

@@ -1,16 +1,5 @@
 <?php
 
-use Contao\DC_Table;
-use Contao\DataContainer;
-use Contao\Backend;
-use Contao\System;
-use Contao\FilesModel;
-use Contao\Image;
-use Contao\Image\ResizeConfiguration;
-
-use Pannorama\Model\PannoramaHotspotModel;
-
-
 /**
  * Table tl_recipes
  */
@@ -20,11 +9,10 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 // Config
 	'config' => array
 	(
-		'dataContainer'               => DC_Table::class,
+		'dataContainer'               => 'Table',
 		'ptable'                      => 'tl_pannorama',
 		'ctable'                      => array('tl_pannorama_hotspot'),
 		'enableVersioning'            => true,
-		'markAsCopy'                 => 'title',
 		'sql' => array
 		(
 			'keys' => array
@@ -162,7 +150,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
 			'eval'                    => array('submitOnChange' => true,'tl_class'=>'w50'),
-			'sql'                     => array('type' => 'boolean', 'default' => false)
+			'sql'                     => "char(1) NOT NULL default '0'"
 		),
 		'title' => array
 		(
@@ -188,7 +176,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
 			'eval'                    => array( 'submitOnChange' => true,'tl_class'=>'w100'),
-			'sql'                     => array('type' => 'boolean', 'default' => true)
+			'sql'                     => "char(1) NOT NULL default '1'"
 		),
 
 		'doubleClickZoom' => array
@@ -198,7 +186,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
 			'eval'                    => array( 'submitOnChange' => true,'tl_class'=>'w100'),
-			'sql'                     => array('type' => 'boolean', 'default' => true)
+			'sql'                     => "char(1) NOT NULL default '1'"
 		),
 
 
@@ -217,7 +205,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
 			'eval'                    => array( 'tl_class'=>'w50'),
-			'sql'                     => array('type' => 'boolean', 'default' => true)
+			'sql'                     => "char(1) NOT NULL default '1'"
 		),
 		'showFullscreenCtrl' => array
 		(
@@ -225,7 +213,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
 			'eval'                    => array( 'tl_class'=>'w50'),
-			'sql'                     => array('type' => 'boolean', 'default' => true)
+			'sql'                     => "char(1) NOT NULL default '1'"
 		),
 		'draggable' => array
 		(
@@ -233,56 +221,56 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
 			'eval'                    => array( 'tl_class'=>'w50'),
-			'sql'                     => array('type' => 'boolean', 'default' => true)
+			'sql'                     => "char(1) NOT NULL default '1'"
 		),
 
 		'panorama' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['panorama'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
+			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>true,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
 			'sql'                     => "binary(16) NULL",
 		),
 		'panoramafront' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['panoramafront'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
+			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>true,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
 			'sql'                     => "binary(16) NULL",
 		),
 		'panoramaright' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['panoramaright'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
+			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>true,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
 			'sql'                     => "binary(16) NULL",
 		),
 		'panoramaback' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['panoramaback'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
+			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>true,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
 			'sql'                     => "binary(16) NULL",
 		),
 		'panoramaleft' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['panoramaleft'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
+			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>true,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
 			'sql'                     => "binary(16) NULL",
 		),
 		'panoramaup' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['panoramaup'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
+			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>true,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
 			'sql'                     => "binary(16) NULL",
 		),
 		'panoramadown' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['panoramadown'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
+			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>true,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
 			'sql'                     => "binary(16) NULL",
 		),
 		'compass' => array
@@ -315,7 +303,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'checkbox',
 			'isBoolean'				  => true,
 			'eval'                    => array( 'submitOnChange' => true,'tl_class'=>'w100'),
-			'sql'                     => array('type' => 'boolean', 'default' => false)
+			'sql'                     => "char(1) NOT NULL default '0'"
 		),
 		'autoRotate' => array
 		(
@@ -358,86 +346,76 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 );
 
 
+use Contao\Image\ResizeConfiguration;
 
-
-class tl_pannorama_scene extends Backend
-{
+class tl_pannorama_scene extends Backend{
 	
 
-	public function generateReferenzRow($arrRow)	
-	{
-
+	public function generateReferenzRow($arrRow)	{
 		$this->loadLanguageFile('tl_pannorama_scene');
 
 		$container = System::getContainer();
 		$rootDir = $container->getParameter('kernel.project_dir');
 
-		$label = '<table style="margin-left:215px;" class="tl_header_table">
+
+		$label = '<table style="margin-left:210px;" class="tl_header_table">
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['title'][0].':</span></th><th>'.$arrRow['title']. '</th></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['type'][0].':</span></th><td>'.$GLOBALS['TL_LANG']['tl_pannorama_scene'][$arrRow['type']][0]. '</td></tr>	
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['showZoomCtrl'][0].':</span></th><td>'. ($arrRow['showZoomCtrl'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
 				  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['showFullscreenCtrl'][0].':</span></th><td>'. ($arrRow['showFullscreenCtrl'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['autoRotateOn'][0].':</span></th><td>'. ($arrRow['autoRotateOn'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['compass'][0].':</span></th><td>'. ($arrRow['compass'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
-                  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['hotspots'].'</span></th><td>'.PannoramaHotspotModel::countBy('pid', $arrRow['id']).'</td></tr>
+                  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['hotspots'].'</span></th><td>'.\PannoramaHotspotModel::countBy('pid', $arrRow['id']).'</td></tr>
                   </table>';
 
 		switch ($arrRow['type']) {
 
 		    case 'equirectangular':
-				$imagefile = FilesModel::findByUuid($arrRow['panorama']);
-				if ($imagefile !== null && file_exists($rootDir . '/' . $imagefile->path))
-				{
-					$label = Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imagefile->path, (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir), '', 'style="float:left;"') . $label;
+				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
+				if ($imagefile->exists()){
+					$label = \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
 				}
 				break;
-
 		    case 'cubemap_single':
-
-				$imagefile = FilesModel::findByUuid($arrRow['panorama']);
-				if ($imagefile !== null && file_exists($rootDir . '/' . $imagefile->path))
-				{
-					$label = Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imagefile->path, (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir), '', 'style="float:left;"'). $label;
+				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
+				if ($imagefile->exists()){
+					$label = \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
 				}
-				break;
-
+		        break;
 		    case 'cubemap_multi':
-
 				$resizeconfig =	(new ResizeConfiguration())->setWidth(50)->setHeight(50)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100);
 
-				$imagepaup = FilesModel::findByUuid($arrRow['panoramaup']);
-				$imageleft = FilesModel::findByUuid($arrRow['panoramaleft']);
-				$imagefront = FilesModel::findByUuid($arrRow['panoramafront']);
-				$imageright = FilesModel::findByUuid($arrRow['panoramaright']);
-				$imageback = FilesModel::findByUuid($arrRow['panoramaback']);
-				$imagedown = FilesModel::findByUuid($arrRow['panoramadown']);
+				$imagepaup = new \File(\FilesModel::findByUuid($arrRow['panoramaup'])->path,true);
+				$imageleft = new \File(\FilesModel::findByUuid($arrRow['panoramaleft'])->path,true);
+				$imagefront = new \File(\FilesModel::findByUuid($arrRow['panoramafront'])->path,true);
+				$imageright = new \File(\FilesModel::findByUuid($arrRow['panoramaright'])->path,true);
+				$imageback = new \File(\FilesModel::findByUuid($arrRow['panoramaback'])->path,true);
+				$imagedown = new \File(\FilesModel::findByUuid($arrRow['panoramadown'])->path,true);
 
 		        $label = '<table border="0" style="float:left;height:150px;width:200px;">
 					<tr>
-					  <td style="font-size:0px;padding:0px">&nbsp;</td>
-					  <td style="font-size:0px;padding:0px">'. (file_exists($rootDir . '/' . $imagepaup->path) == true ? Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imagepaup->path, $resizeconfig)->getUrl($rootDir), '', '') : '' ) . '</td>
-					  <td style="font-size:0px;padding:0px">&nbsp;</td>
-					  <td style="font-size:0px;padding:0px">&nbsp;</td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;">'. ($imagepaup->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaup'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>
 					<tr>
-					  <td style="font-size:0px;padding:0px">'. (file_exists($rootDir . '/' . $imageleft->path) == true ? Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imageleft->path, $resizeconfig)->getUrl($rootDir), '', '') : '' ) . '</td>
-					  <td style="font-size:0px;padding:0px">'. (file_exists($rootDir . '/' . $imagefront->path) == true ? Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imagefront->path, $resizeconfig)->getUrl($rootDir), '', '') : '' ) . '</td>
-					  <td style="font-size:0px;padding:0px">'. (file_exists($rootDir . '/' . $imageright->path) == true ? Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imageright->path, $resizeconfig)->getUrl($rootDir), '', '') : '' ) . '</td>
-					  <td style="font-size:0px;padding:0px">'. (file_exists($rootDir . '/' . $imageback->path) == true ? Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imageback->path, $resizeconfig)->getUrl($rootDir), '', '') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageleft->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaleft'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imagefront->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramafront'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageright->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaright'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageback->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaback'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
 					</tr>
 					<tr>
-					  <td style="font-size:0px;padding:0px">&nbsp;</td>
-					  <td style="font-size:0px;padding:0px">'. (file_exists($rootDir . '/' . $imagedown->path) == true ? Image::getHtml(System::getContainer()->get('contao.image.factory')->create($rootDir . '/' . $imagedown->path, $resizeconfig)->getUrl($rootDir), '', '') : '' ) . '</td>
-					  <td style="font-size:0px;padding:0px">&nbsp;</td>
-					  <td style="font-size:0px;padding:0px">&nbsp;</td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;">'.($imagedown->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramadown'])->path),  $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">&nbsp;</td>
+					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>
 					</table>'.' '.$label;
 		        
 		        break;
-
 		}
 		return $label;
-
     }
 
 }

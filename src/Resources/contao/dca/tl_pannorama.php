@@ -1,5 +1,10 @@
 <?php
 
+use Contao\DC_Table;
+use Contao\DataContainer;
+use Contao\Backend;
+
+use Pannorama\Model\PannoramaSceneModel;
 /**
  * Table tl_cds
  */
@@ -9,8 +14,9 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 	// Config
 	'config' => array
 	(
-		'dataContainer'               => 'Table',
+		'dataContainer'               => DC_Table::class,
 		'ctable'                      => array('tl_pannorama_scene'),
+		'markAsCopy'                  => 'title',
 		'enableVersioning'            => true,
 		'sql' => array
 		(
@@ -88,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'               => '{title_legend},title,autoLoad,loadButtonLabel,preview,firstScene,sceneFadeDuration;{debug_legend},hotSpotDebug'
+		'default'               => '{title_legend},title,autoLoad,loadButtonLabel,firstScene,sceneFadeDuration;{preview_legend},preview;{debug_legend},hotSpotDebug'
 	),
 
 
@@ -160,7 +166,7 @@ $GLOBALS['TL_DCA']['tl_pannorama'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama']['preview'],
 			'inputType'               => 'fileTree',
-			'eval'                    => array( 'tl_class'=>'clr','mandatory'=>false,'fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>$GLOBALS['TL_CONFIG']['validImageTypes']),
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'extensions'=>'%contao.image.valid_extensions%'),
 			'sql'                     => "binary(16) NULL",
 		)
 
@@ -172,8 +178,7 @@ class tl_pannorama extends Backend
 
 	public function getScenes(DataContainer $dc)
 	{
-
-		$objScenes =  \PannoramaSceneModel::findByPid($dc->id);
+		$objScenes = PannoramaSceneModel::findByPid($dc->id);
 		$arrScenes = array();
 		if (isset($objScenes)){
 			foreach ($objScenes as $objScene)

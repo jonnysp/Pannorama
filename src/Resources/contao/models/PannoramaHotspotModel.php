@@ -1,7 +1,9 @@
 <?php
-namespace Contao;
+namespace Pannorama\Model;
 
-class PannoramaHotspotModel extends \Model
+use Contao\Model;
+
+class PannoramaHotspotModel extends Model
 {
     protected static $strTable = 'tl_pannorama_hotspot';
 }

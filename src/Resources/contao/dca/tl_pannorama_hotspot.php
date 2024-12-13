@@ -1,5 +1,15 @@
 <?php
 
+use Pannorama\Model\PannoramaHotspotModel;
+use Pannorama\Model\PannoramaSceneModel;
+
+use Contao\DC_Table;
+use Contao\DataContainer;
+use Contao\Backend;
+use Contao\System;
+use Contao\Image\ResizeConfiguration;
+
+
 /**
  * Table tl_recipes
  */
@@ -9,7 +19,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_hotspot'] = array
 	// Config
 	'config' => array
 	(
-		'dataContainer'               => 'Table',
+		'dataContainer'               => DC_Table::class,
 		'ptable'                      => 'tl_pannorama_scene',
 		'enableVersioning'            => true,
 		'sql' => array
@@ -149,7 +159,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_hotspot'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['sceneId'],
 			'inputType'               => 'select',
 			'options_callback'        => array('tl_pannorama_hotspot', 'getScenes'),
-			'eval'                    => array('includeBlankOption' => true,'submitOnChange' => true, 'mandatory'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
+			'eval'                    => array('includeBlankOption' => true,'submitOnChange'=>true, 'mandatory'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 
@@ -188,7 +198,7 @@ class tl_pannorama_hotspot extends Backend{
 	public function generateReferenzRow($arrRow)	{
 		$this->loadLanguageFile('tl_pannorama_hotspot');
 
-		$thisScene =  \PannoramaSceneModel::findByPk($arrRow['sceneId']);
+		$thisScene =  PannoramaSceneModel::findByPk($arrRow['sceneId']);
 
 		$out =  '<table style="margin-left:40px;" class="tl_header_table">
 			<tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['title'][0].':</span></th><th>'.$arrRow['title']. '</th></tr>
@@ -203,14 +213,14 @@ class tl_pannorama_hotspot extends Backend{
 
 		
 		if ($arrRow['type'] == 'scene') {
-			$out = '<img src="bundles/jonnysppannorama/images/hotspot_big.svg" style="float:left;" />'. $out;
+			$out = '<img src="bundles/jonnysppannorama/images/hotspot_big.svg" style="float:left;height:25px;" />'. $out;
 		}elseif ($arrRow['type'] == 'info') {
-			$out = '<img src="bundles/jonnysppannorama/images/information_big.svg" style="float:left;" />'. $out;
+			$out = '<img src="bundles/jonnysppannorama/images/information_big.svg" style="float:left;height:25px;" />'. $out;
 		}
 
 
 		return	$out.'</table>';
-
+		return '';
 
     }
 
@@ -218,7 +228,7 @@ class tl_pannorama_hotspot extends Backend{
 	public function getScenes(DataContainer $dc)
 	{
 
-		$objScenes = \PannoramaSceneModel::findByPid(\PannoramaSceneModel::findByPk(\PannoramaHotspotModel::findByPk($dc->id)->pid)->pid);
+		$objScenes = PannoramaSceneModel::findByPid(PannoramaSceneModel::findByPk(PannoramaHotspotModel::findByPk($dc->id)->pid)->pid);
 
 		$arrScenes = array();
 

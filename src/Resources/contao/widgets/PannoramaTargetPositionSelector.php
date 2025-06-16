@@ -95,6 +95,14 @@ class PannoramaTargetPositionSelector extends \Widget
     	$config['compass'] = boolval($startscene->compass);
 		$config['northOffset'] =  intval($startscene->northOffset);
 		$config['doubleClickZoom'] = boolval($startscene->doubleClickZoom);
+
+		$config['minHfov'] =  intval($startscene->minHfov);
+		$config['maxHfov'] =  intval($startscene->maxHfov);
+//		$config['minYaw'] =  intval($startscene->minYaw);
+//		$config['maxYaw'] =  intval($startscene->maxYaw);
+//		$config['minPitch'] =  intval($startscene->minPitch);
+//		$config['maxPitch'] =  intval($startscene->maxPitch);
+
 		
 		if (boolval($startscene->showZoomCtrl) == true || boolval($startscene->showFullscreenCtrl) == true) {
 			$config['showControls'] = true;

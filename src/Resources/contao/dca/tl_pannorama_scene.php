@@ -102,11 +102,13 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 	'palettes' => array
 	(
 		'__selector__'    => array('type','showTitle','compass','autoRotateOn'),
-		'default'         => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
-		'equirectangular' => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
-		'cubemap_single'  => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position;',
-		'cubemap_multi'   => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom,minHfov,maxHfov;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown;position;'
+		'default'         => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
+		'equirectangular' => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
+		'cubemap_single'  => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
+		'cubemap_multi'   => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;'
 	),
+
+
 
     // Subpalettes
     'subpalettes' => array (
@@ -286,7 +288,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['northOffset'],
 			'default'				  => 0,
 			'inputType'               => 'text',
-			'eval'                    => array( 'tl_class'=>'w50','rgxp'=>'digit','maxval'=>360,'minval' => 0),
+			'eval'                    => array( 'tl_class'=>'w50','rgxp'=>'natural','maxval'=>360,'minval' => 0),
 			'sql'                     => "varchar(128) NOT NULL default '0'"
 		),
 		'position' => array
@@ -294,7 +296,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['position'],
 			'inputType'               => 'pannoramasceneposition',
 			'eval'                    => array( 'tl_class'=>'clr', 'nospace'=>false),
-			'sql'                     => "varchar(128) NOT NULL default 'a:3:{i:0;s:1:\"0\";i:1;s:1:\"0\";i:2;s:3:\"120\";}'"
+			'sql'                     => "varchar(128) NOT NULL default 'a:3:{i:0;s:1:\"0\";i:1;s:1:\"0\";i:2;s:3:\"100\";}'"
 		),
 
 		'autoRotateOn' => array
@@ -323,12 +325,13 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'sql'                     => "int(128) unsigned NOT NULL default '5000'"
 		),
 
+
 		'minHfov' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['minHfov'],
 			'default'				  => 50,
 			'inputType'               => 'text',
-			'eval'                    => array( 'tl_class'=>'w50','rgxp'=>'natural','maxval'=>120,'minval' => 50),
+			'eval'                    => array( 'tl_class'=>'w33','rgxp'=>'natural','maxval'=>120,'minval' => 50),
 			'sql'                     => "int(128) unsigned NOT NULL default '50'"
 		),
 
@@ -337,10 +340,46 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['maxHfov'],
 			'default'				  => 120,
 			'inputType'               => 'text',
-			'eval'                    => array( 'tl_class'=>'w50','rgxp'=>'natural','maxval'=>120,'minval' => 50),
+			'eval'                    => array( 'tl_class'=>'w33','rgxp'=>'natural','maxval'=>120,'minval' => 50),
 			'sql'                     => "int(128) unsigned NOT NULL default '120'"
-		)
+		),
 
+
+		'minYaw' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['minYaw'],
+			'default'				  => -180,
+			'inputType'               => 'text',
+			'eval'                    => array( 'tl_class'=>'w33','rgxp'=>'digit','maxval'=>180,'minval' => -180),
+			'sql'                     => "int(128) NOT NULL default '-180'"
+		),
+
+		'maxYaw' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['maxYaw'],
+			'default'				  => 180,
+			'inputType'               => 'text',
+			'eval'                    => array( 'tl_class'=>'w33','rgxp'=>'digit','maxval'=>180,'minval' => -180),
+			'sql'                     => "int(128) NOT NULL default '180'"
+		),
+
+		'minPitch' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['minPitch'],
+			'default'				  => -90,
+			'inputType'               => 'text',
+			'eval'                    => array( 'tl_class'=>'w33','rgxp'=>'digit','maxval'=>90,'minval' => -90),
+			'sql'                     => "int(128) NOT NULL default '-90'"
+		),
+
+		'maxPitch' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['maxPitch'],
+			'default'				  => 90,
+			'inputType'               => 'text',
+			'eval'                    => array( 'tl_class'=>'w33','rgxp'=>'digit','maxval'=>90,'minval' => -90),
+			'sql'                     => "int(128) NOT NULL default '90'"
+		)
 
 	)
 );

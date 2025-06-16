@@ -16,8 +16,15 @@ $GLOBALS['TL_LANG']['tl_pannorama_scene']['true'] = array('Ja','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['false'] = array('Nein','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['fullscreenonly'] = array('nur bei Vollbild','');
 
-$GLOBALS['TL_LANG']['tl_pannorama_scene']['minHfov'] = array('minimale Vergrößerung','');
-$GLOBALS['TL_LANG']['tl_pannorama_scene']['maxHfov'] = array('maximale Vergrößerung','');
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['minHfov'] = array('minimale Vergrößerung','min: 50, max:120');
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['maxHfov'] = array('maximale Vergrößerung','min: 50, max:120');
+
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['minYaw'] = array('minimale Schwenk','min: -180, max:180');
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['maxYaw'] = array('maximale Schwenk','min: -180, max:180');
+
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['minPitch'] = array('minimale Neigung','min: -90, max:90');
+$GLOBALS['TL_LANG']['tl_pannorama_scene']['maxPitch'] = array('maximale Neigung','min: -90, max:90');
+
 
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['showZoomCtrl'] = array('Zoom Steuerung anzeigen','');
 $GLOBALS['TL_LANG']['tl_pannorama_scene']['showFullscreenCtrl'] = array('Vollbild Steuerung anzeigen','');

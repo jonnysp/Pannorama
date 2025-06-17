@@ -1,7 +1,11 @@
 <?php
-namespace Contao;
+namespace Pannorama;
 
-class PannoramaModel extends \Model
+use Contao\Model;
+
+class PannoramaModel extends Model
 {
     protected static $strTable = 'tl_pannorama';
 }
+
+class_alias(PannoramaModel::class, 'PannoramaModel');

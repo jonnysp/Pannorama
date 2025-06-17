@@ -1,6 +1,10 @@
 <?php
 
-class PannoramaScenePositionSelector extends \Widget
+use Pannorama\PannoramaSceneModel;
+use Pannorama\PannoramaHotspotModel;
+
+
+class PannoramaScenePositionSelector extends Widget
 {
 
 	protected $strTemplate = 'be_widget';
@@ -17,19 +21,19 @@ class PannoramaScenePositionSelector extends \Widget
 		$container = System::getContainer();
 		$rootDir = $container->getParameter('kernel.project_dir');
 
-		$startscene = \PannoramaSceneModel::findByPk($this->__get('currentRecord'));
+		$startscene = PannoramaSceneModel::findByPk($this->__get('currentRecord'));
 
 		//config
 		switch ($startscene->type) {
 		    case 'equirectangular':
 				$config['type'] = 'equirectangular';
-				$config['panorama'] = \Environment::get('base').\FilesModel::findByPk($startscene->panorama)->path;
+				$config['panorama'] = Environment::get('base').FilesModel::findByPk($startscene->panorama)->path;
 		        break;
 		    case 'cubemap_single':
 				$config['type'] = 'cubemap';
-				$filemodel = \FilesModel::findByPk($startscene->panorama);
+				$filemodel = FilesModel::findByPk($startscene->panorama);
 				if (isset($filemodel)){
-					$file = new \File($filemodel->path);
+					$file = new File($filemodel->path);
 					if ($file->isImage && $file->isGdImage){
 						$panelsizeheight = $file->imageSize[1] / 3;
 						$panelsizewidth = $file->imageSize[0] / 4;
@@ -75,12 +79,12 @@ class PannoramaScenePositionSelector extends \Widget
 				$config['type'] = 'cubemap';
 				//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
 				$config['cubeMap']	= array(
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramafront)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaright)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaback)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaleft)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramaup)->path,
-					\Environment::get('base').\FilesModel::findByPk($startscene->panoramadown)->path
+					Environment::get('base').FilesModel::findByPk($startscene->panoramafront)->path,
+					Environment::get('base').FilesModel::findByPk($startscene->panoramaright)->path,
+					Environment::get('base').FilesModel::findByPk($startscene->panoramaback)->path,
+					Environment::get('base').FilesModel::findByPk($startscene->panoramaleft)->path,
+					Environment::get('base').FilesModel::findByPk($startscene->panoramaup)->path,
+					Environment::get('base').FilesModel::findByPk($startscene->panoramadown)->path
 				);
 		        break;
 		}
@@ -95,16 +99,21 @@ class PannoramaScenePositionSelector extends \Widget
     	$config['hotSpotDebug'] = true;
 		$config['compass'] = boolval($startscene->compass);
 		$config['northOffset'] =  intval($startscene->northOffset);
-		
-		//zoom
-		$config['minHfov'] =  intval($startscene->minHfov);
-		$config['maxHfov'] =  intval($startscene->maxHfov);
 
-//		$config['minYaw'] =  intval($startscene->minYaw);
-//		$config['maxYaw'] =  intval($startscene->maxYaw);
-//		$config['minPitch'] =  intval($startscene->minPitch);
-//		$config['maxPitch'] =  intval($startscene->maxPitch);
+		if (boolval($startscene->useminmaxhfov) == true){
+			$config['minHfov'] =  intval($startscene->minHfov);
+			$config['maxHfov'] =  intval($startscene->maxHfov);
+		}
 
+		if (boolval($startscene->useminmaxyaw) == true){
+			$config['minYaw'] =  intval($startscene->minYaw);
+			$config['maxYaw'] =  intval($startscene->maxYaw);
+		}
+
+		if (boolval($startscene->useminmaxpitch) == true){
+			$config['minPitch'] =  intval($startscene->minPitch);
+			$config['maxPitch'] =  intval($startscene->maxPitch);
+		}
 
 		if (boolval($startscene->showZoomCtrl) == true || boolval($startscene->showFullscreenCtrl) == true) {
 			$config['showControls'] = true;
@@ -123,15 +132,15 @@ class PannoramaScenePositionSelector extends \Widget
 			}
 		}
 
-    	if(\PannoramaHotspotModel::countBy('pid', $startscene->id) > 0){
-			foreach (\PannoramaHotspotModel::findByPid($startscene->id) as $hotkey => $hotvalue){
+    	if(PannoramaHotspotModel::countBy('pid', $startscene->id) > 0){
+			foreach (PannoramaHotspotModel::findByPid($startscene->id) as $hotkey => $hotvalue){
 				$tempposition = unserialize($hotvalue->position);
 				$hotspot['pitch'] = floatval($tempposition[0]); 
 				$hotspot['yaw'] = floatval($tempposition[1]);
 				$hotspot['type'] = 'info';
 				$hotspot['text'] = $hotvalue->title;
 				$hotspot['cssClass'] = $hotvalue->type.'_spot';
-				//$hotspot['URL'] = 'contao/main.php?do=Pannorama&table=tl_pannorama_hotspot&act=edit&id='.$hotvalue->id.'&rt='.\RequestToken::get();
+				//$hotspot['URL'] = 'contao/main.php?do=Pannorama&table=tl_pannorama_hotspot&act=edit&id='.$hotvalue->id.'&rt='.RequestToken::get();
 				$config['hotSpots'][] = $hotspot;
 				unset($hotspot);
 			}
@@ -189,3 +198,5 @@ class PannoramaScenePositionSelector extends \Widget
 						$this->wizard);
 	}
 }
+
+

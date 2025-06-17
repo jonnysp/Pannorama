@@ -1,5 +1,7 @@
 <?php
 
+use Pannorama\PannoramaSceneModel;
+
 /**
  * Table tl_cds
  */
@@ -173,7 +175,7 @@ class tl_pannorama extends Backend
 	public function getScenes(DataContainer $dc)
 	{
 
-		$objScenes =  \PannoramaSceneModel::findByPid($dc->id);
+		$objScenes = PannoramaSceneModel::findByPid($dc->id);
 		$arrScenes = array();
 		if (isset($objScenes)){
 			foreach ($objScenes as $objScene)

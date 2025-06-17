@@ -1,5 +1,7 @@
 <?php
 
+use Pannorama\PannoramaModel;
+
 $GLOBALS['TL_DCA']['tl_content']['palettes']['pannorama_viewer'] = '{type_legend},type;{pannorama_legend},pannoramaviewer;{protected_legend:hide},protected;{expert_legend:hide},cssID,space;{invisible_legend:hide},invisible,start,stop';
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['pannoramaviewer'] = array
@@ -18,7 +20,7 @@ class tl_content_pannorama extends Backend
 
 	public function getPannorama()
 	{
-		$objCats =  \PannoramaModel::findAll();
+		$objCats = PannoramaModel::findAll();
 		$arrCats = array();
 		if (isset($objCats)) {
 			foreach ($objCats as $objCat)

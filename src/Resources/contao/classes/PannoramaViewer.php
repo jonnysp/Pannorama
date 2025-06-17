@@ -1,6 +1,9 @@
 <?php
+use Pannorama\PannoramaModel;
+use Pannorama\PannoramaSceneModel;
+use Pannorama\PannoramaHotspotModel;
 
-class PannoramaViewer extends \ContentElement
+class PannoramaViewer extends ContentElement
 {
 	protected $strTemplate = 'ce_pannorama';
 
@@ -16,10 +19,10 @@ class PannoramaViewer extends \ContentElement
 			$container = System::getContainer();
 			$rootDir = $container->getParameter('kernel.project_dir');
 
-			$objPannorama = \PannoramaModel::findByPK($this->pannoramaviewer);
+			$objPannorama = PannoramaModel::findByPK($this->pannoramaviewer);
 
 			if (isset($objPannorama)) {
-				$objTemplate = new \BackendTemplate('be_wildcard');
+				$objTemplate = new BackendTemplate('be_wildcard');
 				$objTemplate->title =  $objPannorama->title;
 
 
@@ -29,16 +32,16 @@ class PannoramaViewer extends \ContentElement
 		        $config['default']['autoLoad'] = boolval($objPannorama->autoLoad);
 
 				if (boolval($objPannorama->autoLoad) == false){
-					$config['default']['preview'] = \Environment::get('base').\FilesModel::findByPk($objPannorama->preview)->path;
+					$config['default']['preview'] = Environment::get('base').FilesModel::findByPk($objPannorama->preview)->path;
 					$config['default']['loadButtonLabel'] = $objPannorama->loadButtonLabel;
 				}
 
 		        $config['default']['hotSpotDebug'] = boolval($objPannorama->hotSpotDebug);
 
 				//Scenen
-				if(\PannoramaSceneModel::countBy('pid', $objPannorama->id) > 0){
+				if(PannoramaSceneModel::countBy('pid', $objPannorama->id) > 0){
 
-			        foreach (\PannoramaSceneModel::findByPid($objPannorama->id) as $key => $value) {
+			        foreach (PannoramaSceneModel::findByPid($objPannorama->id) as $key => $value) {
 			        	
 						if (boolval($value->showTitle) == true){
 							if($value->title != ''){
@@ -59,15 +62,15 @@ class PannoramaViewer extends \ContentElement
 						switch ($value->type) {
 						    case 'equirectangular':
 								$config['scenes'][$value->id]['type'] ='equirectangular';
-								$config['scenes'][$value->id]['panorama'] = \Environment::get('base').\FilesModel::findByPk($value->panorama)->path;
+								$config['scenes'][$value->id]['panorama'] = Environment::get('base').FilesModel::findByPk($value->panorama)->path;
 						        break;
 
 						    case 'cubemap_single':
 								$config['scenes'][$value->id]['type'] = 'cubemap';
-								$filemodel = \FilesModel::findByPk($value->panorama);
+								$filemodel = FilesModel::findByPk($value->panorama);
 								if (isset($filemodel)){
 
-									$file = new \File($filemodel->path);
+									$file = new File($filemodel->path);
 									$panelsizeheight = $file->imageSize[1] / 3;
 									$panelsizewidth = $file->imageSize[0] / 4;
 
@@ -110,12 +113,12 @@ class PannoramaViewer extends \ContentElement
 						    case 'cubemap_multi':
 								$config['scenes'][$value->id]['type'] = 'cubemap';
 								//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
-								$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramafront)->path;
-								$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaright)->path;
-								$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaback)->path;
-								$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaleft)->path;
-								$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaup)->path;
-								$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramadown)->path;
+								$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramafront)->path;
+								$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaright)->path;
+								$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaback)->path;
+								$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaleft)->path;
+								$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaup)->path;
+								$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramadown)->path;
 								$config['scenes'][$value->id]['cubeMap'] = $cubemap;
 								unset($cubemap);
 						        break;
@@ -143,9 +146,27 @@ class PannoramaViewer extends \ContentElement
 						$config['scenes'][$value->id]['doubleClickZoom'] = boolval($value->doubleClickZoom);
 						$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
 
+
+						if (boolval($value->useminmaxhfov) == true){
+							$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
+							$config['scenes'][$value->id]['maxHfov'] =  intval($value->maxHfov);
+						}
+
+						if (boolval($value->useminmaxyaw) == true){
+							$config['scenes'][$value->id]['minYaw'] =  intval($value->minYaw);
+							$config['scenes'][$value->id]['maxYaw'] =  intval($value->maxYaw);
+						}
+
+						if (boolval($value->useminmaxpitch) == true){
+							$config['scenes'][$value->id]['minPitch'] =  intval($value->minPitch);
+							$config['scenes'][$value->id]['maxPitch'] =  intval($value->maxPitch);
+						}
+
+
+
 						//Hotspots
-						if(\PannoramaHotspotModel::countBy('pid', $value->id) > 0){
-							foreach (\PannoramaHotspotModel::findByPid($value->id) as $hotkey => $hotvalue){
+						if(PannoramaHotspotModel::countBy('pid', $value->id) > 0){
+							foreach (PannoramaHotspotModel::findByPid($value->id) as $hotkey => $hotvalue){
 								$tempposition = unserialize($hotvalue->position);
 								$temptargetposition = unserialize($hotvalue->targetposition);
 				
@@ -191,7 +212,7 @@ class PannoramaViewer extends \ContentElement
 		$container = System::getContainer();
 		$rootDir = $container->getParameter('kernel.project_dir');
 
-		$objPannorama = \PannoramaModel::findByPK($this->pannoramaviewer);
+		$objPannorama = PannoramaModel::findByPK($this->pannoramaviewer);
 		
         //translation
 		if (file_exists('bundles/jonnysppannorama/'.strtoupper($GLOBALS['TL_LANGUAGE']).'.json')) {
@@ -204,16 +225,16 @@ class PannoramaViewer extends \ContentElement
 
 
 		if (boolval($objPannorama->autoLoad) == false){
-			$config['default']['preview'] = \Environment::get('base').\FilesModel::findByPk($objPannorama->preview)->path;
+			$config['default']['preview'] = Environment::get('base').FilesModel::findByPk($objPannorama->preview)->path;
 			$config['default']['loadButtonLabel'] = $objPannorama->loadButtonLabel;
 		}
 
         $config['default']['hotSpotDebug'] = boolval($objPannorama->hotSpotDebug);
 
 		//Scenen
-		if(\PannoramaSceneModel::countBy('pid', $objPannorama->id) > 0){
+		if(PannoramaSceneModel::countBy('pid', $objPannorama->id) > 0){
 
-	        foreach (\PannoramaSceneModel::findByPid($objPannorama->id) as $key => $value) {
+	        foreach (PannoramaSceneModel::findByPid($objPannorama->id) as $key => $value) {
 	        	
 				if (boolval($value->showTitle) == true){
 					if($value->title != ''){
@@ -234,15 +255,15 @@ class PannoramaViewer extends \ContentElement
 				switch ($value->type) {
 				    case 'equirectangular':
 						$config['scenes'][$value->id]['type'] ='equirectangular';
-						$config['scenes'][$value->id]['panorama'] = \Environment::get('base').\FilesModel::findByPk($value->panorama)->path;
+						$config['scenes'][$value->id]['panorama'] = Environment::get('base').FilesModel::findByPk($value->panorama)->path;
 				        break;
 
 				    case 'cubemap_single':
 						$config['scenes'][$value->id]['type'] = 'cubemap';
-						$filemodel = \FilesModel::findByPk($value->panorama);
+						$filemodel = FilesModel::findByPk($value->panorama);
 						if (isset($filemodel)){
 
-							$file = new \File($filemodel->path);
+							$file = new File($filemodel->path);
 							$panelsizeheight = $file->imageSize[1] / 3;
 							$panelsizewidth = $file->imageSize[0] / 4;
 
@@ -286,12 +307,12 @@ class PannoramaViewer extends \ContentElement
 				    case 'cubemap_multi':
 						$config['scenes'][$value->id]['type'] = 'cubemap';
 						//panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown
-						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramafront)->path;
-						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaright)->path;
-						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaback)->path;
-						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaleft)->path;
-						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramaup)->path;
-						$cubemap[] =  \Environment::get('base').\FilesModel::findByPk($value->panoramadown)->path;
+						$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramafront)->path;
+						$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaright)->path;
+						$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaback)->path;
+						$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaleft)->path;
+						$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramaup)->path;
+						$cubemap[] =  Environment::get('base').FilesModel::findByPk($value->panoramadown)->path;
 						$config['scenes'][$value->id]['cubeMap'] = $cubemap;
 						unset($cubemap);
 				        break;
@@ -318,18 +339,24 @@ class PannoramaViewer extends \ContentElement
 				$config['scenes'][$value->id]['doubleClickZoom'] = boolval($value->doubleClickZoom);
 				$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
 
-				$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
-				$config['scenes'][$value->id]['maxHfov'] =  intval($value->maxHfov);
-				$config['scenes'][$value->id]['minYaw'] =  intval($value->minYaw);
-				$config['scenes'][$value->id]['maxYaw'] =  intval($value->maxYaw);
-				$config['scenes'][$value->id]['minPitch'] =  intval($value->minPitch);
-				$config['scenes'][$value->id]['maxPitch'] =  intval($value->maxPitch);
+				if (boolval($value->useminmaxhfov) == true){
+					$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
+					$config['scenes'][$value->id]['maxHfov'] =  intval($value->maxHfov);
+				}
 
+				if (boolval($value->useminmaxyaw) == true){
+					$config['scenes'][$value->id]['minYaw'] =  intval($value->minYaw);
+					$config['scenes'][$value->id]['maxYaw'] =  intval($value->maxYaw);
+				}
 
+				if (boolval($value->useminmaxpitch) == true){
+					$config['scenes'][$value->id]['minPitch'] =  intval($value->minPitch);
+					$config['scenes'][$value->id]['maxPitch'] =  intval($value->maxPitch);
+				}
 
 				//Hotspots
-				if(\PannoramaHotspotModel::countBy('pid', $value->id) > 0){
-					foreach (\PannoramaHotspotModel::findByPid($value->id) as $hotkey => $hotvalue){
+				if(PannoramaHotspotModel::countBy('pid', $value->id) > 0){
+					foreach (PannoramaHotspotModel::findByPid($value->id) as $hotkey => $hotvalue){
 						$tempposition = unserialize($hotvalue->position);
 						$temptargetposition = unserialize($hotvalue->targetposition);
 		

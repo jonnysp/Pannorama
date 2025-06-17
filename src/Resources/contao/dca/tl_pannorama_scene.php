@@ -1,5 +1,10 @@
 <?php
 
+
+use Pannorama\PannoramaHotspotModel;
+use Contao\Image\ResizeConfiguration;
+
+
 /**
  * Table tl_recipes
  */
@@ -102,10 +107,10 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 	'palettes' => array
 	(
 		'__selector__'    => array('type','showTitle','compass','autoRotateOn'),
-		'default'         => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
-		'equirectangular' => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
-		'cubemap_single'  => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
-		'cubemap_multi'   => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown;position,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;'
+		'default'         => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,useminmaxpitch,useminmaxyaw,useminmaxhfov,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
+		'equirectangular' => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,useminmaxpitch,useminmaxyaw,useminmaxhfov,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
+		'cubemap_single'  => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panorama;position,useminmaxpitch,useminmaxyaw,useminmaxhfov,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;',
+		'cubemap_multi'   => '{title_legend},type,title,showTitle;{controls_legend:hide},showZoomCtrl,showFullscreenCtrl;{zoom_legend:hide},keyboardZoom,doubleClickZoom,mouseZoom;{compass_legend:hide},compass;{rotate_legend:hide},autoRotateOn,draggable;{scene_legend},panoramafront,panoramaright,panoramaback,panoramaleft,panoramaup,panoramadown;position,useminmaxpitch,useminmaxyaw,useminmaxhfov,minPitch,minYaw,minHfov,maxPitch,maxYaw,maxHfov;'
 	),
 
 
@@ -326,6 +331,16 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 		),
 
 
+		'useminmaxhfov' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['useminmaxhfov'],
+			'inputType'               => 'checkbox',
+			'isBoolean'				  => true,
+			'eval'                    => array('tl_class'=>'w33'),
+			'sql'                     => "char(1) NOT NULL default '0'"
+		),
+
+
 		'minHfov' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['minHfov'],
@@ -344,6 +359,14 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'sql'                     => "int(128) unsigned NOT NULL default '120'"
 		),
 
+		'useminmaxyaw' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['useminmaxyaw'],
+			'inputType'               => 'checkbox',
+			'isBoolean'				  => true,
+			'eval'                    => array( 'tl_class'=>'w33'),
+			'sql'                     => "char(1) NOT NULL default '0'"
+		),
 
 		'minYaw' => array
 		(
@@ -361,6 +384,15 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'inputType'               => 'text',
 			'eval'                    => array( 'tl_class'=>'w33','rgxp'=>'digit','maxval'=>180,'minval' => -180),
 			'sql'                     => "int(128) NOT NULL default '180'"
+		),
+
+		'useminmaxpitch' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_pannorama_scene']['useminmaxpitch'],
+			'inputType'               => 'checkbox',
+			'isBoolean'				  => true,
+			'eval'                    => array('tl_class'=>'w33'),
+			'sql'                     => "char(1) NOT NULL default '0'"
 		),
 
 		'minPitch' => array
@@ -381,11 +413,14 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'sql'                     => "int(128) NOT NULL default '90'"
 		)
 
+
+
+
 	)
 );
 
 
-use Contao\Image\ResizeConfiguration;
+
 
 class tl_pannorama_scene extends Backend{
 	
@@ -404,49 +439,49 @@ class tl_pannorama_scene extends Backend{
 				  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['showFullscreenCtrl'][0].':</span></th><td>'. ($arrRow['showFullscreenCtrl'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['autoRotateOn'][0].':</span></th><td>'. ($arrRow['autoRotateOn'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
                   <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['compass'][0].':</span></th><td>'. ($arrRow['compass'] == 1 ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']) . '</td></tr>
-                  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['hotspots'].'</span></th><td>'.\PannoramaHotspotModel::countBy('pid', $arrRow['id']).'</td></tr>
+                  <tr><th><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_scene']['hotspots'].'</span></th><td>'.PannoramaHotspotModel::countBy('pid', $arrRow['id']).'</td></tr>
                   </table>';
 
 		switch ($arrRow['type']) {
 
 		    case 'equirectangular':
-				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
+				$imagefile = new File(FilesModel::findByUuid($arrRow['panorama'])->path,true);
 				if ($imagefile->exists()){
-					$label = \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
+					$label = Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(100)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
 				}
 				break;
 		    case 'cubemap_single':
-				$imagefile = new \File(\FilesModel::findByUuid($arrRow['panorama'])->path,true);
+				$imagefile = new File(FilesModel::findByUuid($arrRow['panorama'])->path,true);
 				if ($imagefile->exists()){
-					$label = \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
+					$label = Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panorama'])->path), (new ResizeConfiguration())->setWidth(200)->setHeight(150)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100))->getUrl($rootDir),'','style="float:left;"'). $label;
 				}
 		        break;
 		    case 'cubemap_multi':
 				$resizeconfig =	(new ResizeConfiguration())->setWidth(50)->setHeight(50)->setMode(ResizeConfiguration::MODE_BOX)->setZoomLevel(100);
 
-				$imagepaup = new \File(\FilesModel::findByUuid($arrRow['panoramaup'])->path,true);
-				$imageleft = new \File(\FilesModel::findByUuid($arrRow['panoramaleft'])->path,true);
-				$imagefront = new \File(\FilesModel::findByUuid($arrRow['panoramafront'])->path,true);
-				$imageright = new \File(\FilesModel::findByUuid($arrRow['panoramaright'])->path,true);
-				$imageback = new \File(\FilesModel::findByUuid($arrRow['panoramaback'])->path,true);
-				$imagedown = new \File(\FilesModel::findByUuid($arrRow['panoramadown'])->path,true);
+				$imagepaup = new File(FilesModel::findByUuid($arrRow['panoramaup'])->path,true);
+				$imageleft = new File(FilesModel::findByUuid($arrRow['panoramaleft'])->path,true);
+				$imagefront = new File(FilesModel::findByUuid($arrRow['panoramafront'])->path,true);
+				$imageright = new File(FilesModel::findByUuid($arrRow['panoramaright'])->path,true);
+				$imageback = new File(FilesModel::findByUuid($arrRow['panoramaback'])->path,true);
+				$imagedown = new File(FilesModel::findByUuid($arrRow['panoramadown'])->path,true);
 
 		        $label = '<table border="0" style="float:left;height:150px;width:200px;">
 					<tr>
 					  <td style="font-size:0px;">&nbsp;</td>
-					  <td style="font-size:0px;">'. ($imagepaup->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaup'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'. ($imagepaup->exists() == true ? Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panoramaup'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>
 					<tr>
-					  <td style="font-size:0px;">'.($imageleft->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaleft'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
-					  <td style="font-size:0px;">'.($imagefront->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramafront'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
-					  <td style="font-size:0px;">'.($imageright->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaright'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
-					  <td style="font-size:0px;">'.($imageback->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramaback'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageleft->exists() == true ? Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panoramaleft'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imagefront->exists() == true ? Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panoramafront'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageright->exists() == true ? Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panoramaright'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imageback->exists() == true ? Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panoramaback'])->path), $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
 					</tr>
 					<tr>
 					  <td style="font-size:0px;">&nbsp;</td>
-					  <td style="font-size:0px;">'.($imagedown->exists() == true ? \Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(\FilesModel::findByUuid($arrRow['panoramadown'])->path),  $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
+					  <td style="font-size:0px;">'.($imagedown->exists() == true ? Image::getHtml($container->get('contao.image.image_factory')->create($rootDir . '/' . rawurldecode(FilesModel::findByUuid($arrRow['panoramadown'])->path),  $resizeconfig )->getUrl($rootDir),'','') : '' ) . '</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					  <td style="font-size:0px;">&nbsp;</td>
 					</tr>

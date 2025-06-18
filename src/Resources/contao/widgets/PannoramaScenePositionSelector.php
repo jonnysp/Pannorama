@@ -137,7 +137,22 @@ class PannoramaScenePositionSelector extends Widget
     	$config['hotSpotDebug'] = true;
 		$config['compass'] = boolval($startscene->compass);
 		$config['northOffset'] =  intval($startscene->northOffset);
-		
+
+		if (boolval($startscene->useminmaxhfov) == true){
+			$config['minHfov'] = intval($startscene->minHfov);
+			$config['maxHfov'] = intval($startscene->maxHfov);
+		}
+
+		if (boolval($startscene->useminmaxyaw) == true){
+			$config['minYaw'] = intval($startscene->minYaw);
+			$config['maxYaw'] = intval($startscene->maxYaw);
+		}
+
+		if (boolval($startscene->useminmaxpitch) == true){
+			$config['minPitch'] = intval($startscene->minPitch);
+			$config['maxPitch'] = intval($startscene->maxPitch);
+		}		
+
 		if (boolval($startscene->showZoomCtrl) == true || boolval($startscene->showFullscreenCtrl) == true) {
 			$config['showControls'] = true;
 			$config['showZoomCtrl'] = boolval($startscene->showZoomCtrl);

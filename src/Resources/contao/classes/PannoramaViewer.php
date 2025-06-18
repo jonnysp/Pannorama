@@ -178,6 +178,21 @@ class PannoramaViewer extends ContentElement
 						$config['scenes'][$value->id]['doubleClickZoom'] = boolval($value->doubleClickZoom);
 						$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
 
+						if (boolval($value->useminmaxhfov) == true){
+							$config['scenes'][$value->id]['minHfov'] = intval($value->minHfov);
+							$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
+						}
+
+						if (boolval($value->useminmaxyaw) == true){
+							$config['scenes'][$value->id]['minYaw'] = intval($value->minYaw);
+							$config['scenes'][$value->id]['maxYaw'] = intval($value->maxYaw);
+						}
+
+						if (boolval($value->useminmaxpitch) == true){
+							$config['scenes'][$value->id]['minPitch'] = intval($value->minPitch);
+							$config['scenes'][$value->id]['maxPitch'] = intval($value->maxPitch);
+						}
+
 						//Hotspots
 						if(PannoramaHotspotModel::countBy('pid', $value->id) > 0){
 							foreach (PannoramaHotspotModel::findByPid($value->id) as $hotkey => $hotvalue){
@@ -374,6 +389,21 @@ class PannoramaViewer extends ContentElement
 				$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
 				$config['scenes'][$value->id]['doubleClickZoom'] = boolval($value->doubleClickZoom);
 				$config['scenes'][$value->id]['draggable'] = boolval($value->draggable);
+
+				if (boolval($value->useminmaxhfov) == true){
+					$config['scenes'][$value->id]['minHfov'] = intval($value->minHfov);
+					$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
+				}
+
+				if (boolval($value->useminmaxyaw) == true){
+					$config['scenes'][$value->id]['minYaw'] = intval($value->minYaw);
+					$config['scenes'][$value->id]['maxYaw'] = intval($value->maxYaw);
+				}
+
+				if (boolval($value->useminmaxpitch) == true){
+					$config['scenes'][$value->id]['minPitch'] = intval($value->minPitch);
+					$config['scenes'][$value->id]['maxPitch'] = intval($value->maxPitch);
+				}
 
 				//Hotspots
 				if(PannoramaHotspotModel::countBy('pid', $value->id) > 0){

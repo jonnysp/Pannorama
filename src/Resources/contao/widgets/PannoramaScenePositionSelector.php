@@ -8,10 +8,8 @@ use Contao\Image;
 use Contao\Image\ResizeConfiguration;
 use Contao\Image\ResizeOptions;
 use Contao\Image\ImportantPart;
-
 use Pannorama\Model\PannoramaSceneModel;
 use Pannorama\Model\PannoramaHotspotModel;
-
 
 
 class PannoramaScenePositionSelector extends Widget

@@ -7,9 +7,10 @@ use Contao\File;
 use Contao\Image;
 use Contao\Image\ResizeConfiguration;
 use Contao\Image\ResizeOptions;
+use Contao\Image\ImportantPart;
 use Pannorama\Model\PannoramaSceneModel;
 use Pannorama\Model\PannoramaHotspotModel;
-use Contao\Image\ImportantPart;
+
 
 class PannoramaHotspotPositionSelector extends Widget
 {
@@ -29,8 +30,9 @@ class PannoramaHotspotPositionSelector extends Widget
 		$rootDir = $container->getParameter('kernel.project_dir');
 
 		$selfspot = PannoramaHotspotModel::findByPk($this->__get('currentRecord'));
-		$startscene =  PannoramaSceneModel::findByPk($selfspot->pid);         
+		$startscene = PannoramaSceneModel::findByPk($selfspot->pid);         
 
+		
 		//config
 		switch ($startscene->type) {
 		    case 'equirectangular':
@@ -226,7 +228,5 @@ class PannoramaHotspotPositionSelector extends Widget
 						(($this->strClass != '') ? ' class="' . $this->strClass . '"' : ''),
 						implode(' ', $arrFields),
 						$this->wizard);
-
-	return '';
 	}
 }

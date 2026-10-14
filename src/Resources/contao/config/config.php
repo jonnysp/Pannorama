@@ -16,8 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 $GLOBALS['TL_MODELS']['tl_pannorama'] = PannoramaModel::class;
-$GLOBALS['TL_MODELS']['tl_pannorama_hotspot'] = PannoramaHotspotModel::class;
 $GLOBALS['TL_MODELS']['tl_pannorama_scene'] = PannoramaSceneModel::class;
+$GLOBALS['TL_MODELS']['tl_pannorama_hotspot'] = PannoramaHotspotModel::class;
 
 
 ArrayUtil::arrayInsert($GLOBALS['BE_MOD']['pannorama'], 100, array

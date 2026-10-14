@@ -8,7 +8,7 @@ use Contao\DataContainer;
 use Contao\Backend;
 use Contao\System;
 use Contao\Image\ResizeConfiguration;
-
+use Contao\CoreBundle\DataContainer\RecordLabel;
 
 /**
  * Table tl_recipes
@@ -22,6 +22,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_hotspot'] = array
 		'dataContainer'               => DC_Table::class,
 		'ptable'                      => 'tl_pannorama_scene',
 		'enableVersioning'            => true,
+		'markAsCopy'                 => 'title',
 		'sql' => array
 		(
 			'keys' => array
@@ -40,14 +41,20 @@ $GLOBALS['TL_DCA']['tl_pannorama_hotspot'] = array
 		 'sorting' => array
 		(
 			'mode'                    => 4,
-			'fields'                  => array('type'),
+			'fields'                  => array('pid', 'title'),
 			'headerFields'            => array('title','type','showZoomCtrl','showFullscreenCtrl','autoRotateOn','compass'),
+			'flag'                    => 1,
 			'disableGrouping'         => true,
-		//	'flag'        			  => 11,
-			'panelLayout'             => 'filter;search,limit',
-			'child_record_callback'   => array('tl_pannorama_hotspot', 'generateReferenzRow')
+			'panelLayout'             => 'filter;search,limit'
 		),
 		
+		'label' => array
+		(
+			'fields'                  => array('title'),
+			'format'                  => '%s',
+			'label_callback'          => array('tl_pannorama_hotspot', 'generateReferenzRow')			
+		),
+
 		'global_operations' => array
 		(
 			'all' => array
@@ -117,6 +124,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_hotspot'] = array
 
 		'pid' => array
 		(
+			'foreignKey'   			  => 'tl_pannorama_scene.id', 
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 
@@ -205,10 +213,12 @@ class tl_pannorama_hotspot extends Backend{
 			<!--<tr><td><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['type'][0].':</span></td><td>'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot'][$arrRow['type']][0]. '</td></tr>-->
 			';	
 
-		if ($arrRow['type'] == 'scene') {
-			$out .=	'<tr><td><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['sceneId'][0].':</span></td><td>'.$thisScene->title. '</td></tr>';
-		}elseif ($arrRow['type'] == 'info' && $arrRow['url'] <> '') {
-			$out .=	'<tr><td><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['url'][0].':</span></td><td>'.$arrRow['url']. '</td></tr>';
+		if ($thisScene){
+			if ($arrRow['type'] == 'scene') {
+				$out .=	'<tr><td><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['sceneId'][0].':</span></td><td>'.$thisScene->title. '</td></tr>';
+			}elseif ($arrRow['type'] == 'info' && $arrRow['url'] <> '') {
+				$out .=	'<tr><td><span class="tl_label">'.$GLOBALS['TL_LANG']['tl_pannorama_hotspot']['url'][0].':</span></td><td>'.$arrRow['url']. '</td></tr>';
+			}
 		}
 
 		
@@ -218,27 +228,46 @@ class tl_pannorama_hotspot extends Backend{
 			$out = '<img src="bundles/jonnysppannorama/images/information_big.svg" style="float:left;height:25px;" />'. $out;
 		}
 
-
-		return	$out.'</table>';
-		return '';
+		return RecordLabel::fromHtml($out.'</table>');
 
     }
 
 
 	public function getScenes(DataContainer $dc)
 	{
-
-		$objScenes = PannoramaSceneModel::findByPid(PannoramaSceneModel::findByPk(PannoramaHotspotModel::findByPk($dc->id)->pid)->pid);
-
 		$arrScenes = array();
+		$intPid = null;
 
-		if (isset($objScenes)){
-			foreach ($objScenes as $objScene)
-			{
+		if (isset($dc->activeRecord) && $dc->activeRecord->pid) {
+			$intPid = $dc->activeRecord->pid;
+		} 
+
+		elseif ($dc->id) {
+			$objHotspot = PannoramaHotspotModel::findByPk($dc->id);
+			if ($objHotspot !== null) {
+				$intPid = $objHotspot->pid;
+			}
+		}
+
+		if (!$intPid) {
+			return $arrScenes;
+		}
+		
+		$objCurrentScene = PannoramaSceneModel::findByPk($intPid);
+		if (!$objCurrentScene) {
+			return $arrScenes;
+		}
+		
+		$objScenes = PannoramaSceneModel::findByPid($objCurrentScene->pid);
+
+		if ($objScenes !== null) {
+			foreach ($objScenes as $objScene) {
 				$arrScenes[$objScene->id] = $objScene->title;
 			}
-		};
+		}
+
 		return $arrScenes;
 	}
+
 
 }

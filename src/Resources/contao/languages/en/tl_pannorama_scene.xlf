@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file datatype="plaintext" original="src/Resources/contao/languages/en/tl_pannorama_scene.xlf" source-language="en" target-language="en">
+    <body>
+      <!-- Fields -->
+      <trans-unit id="tl_pannorama_scene.showTitle.0">
+        <source>Show title and author</source>
+        <target>Show title and author</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.showTitle.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.title.0">
+        <source>Scene title</source>
+        <target>Scene title</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.title.1">
+        <source>Please enter the scene title.</source>
+        <target>Please enter the scene title here.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.author.0">
+        <source>Author</source>
+        <target>Author</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.author.1">
+        <source>Please enter the panorama author.</source>
+        <target>Please enter the panorama author here.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.panorama.0">
+        <source>Panorama</source>
+        <target>Panorama</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.panorama.1">
+        <source>Please select the panorama file.</source>
+        <target>Please select the panorama.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.position.0">
+        <source>Start position</source>
+        <target>Start position</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.position.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.keyboardZoom.0">
+        <source>Keyboard zoom</source>
+        <target>Zoom with keyboard</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.keyboardZoom.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.doubleClickZoom.0">
+        <source>Double click zoom</source>
+        <target>Zoom with double click</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.doubleClickZoom.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.mouseZoom.0">
+        <source>Mouse zoom</source>
+        <target>Zoom with mouse</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.mouseZoom.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.true.0">
+        <source>Yes</source>
+        <target>Yes</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.true.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.false.0">
+        <source>No</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.false.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.fullscreenonly.0">
+        <source>Fullscreen only</source>
+        <target>Fullscreen only</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.fullscreenonly.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.useminmaxpitch.0">
+        <source>Limit vertical FOV</source>
+        <target>Limit vertical FOV</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.useminmaxpitch.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.minPitch.0">
+        <source>Minimum vertical FOV</source>
+        <target>Minimum vertical FOV</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.minPitch.1">
+        <source>Min: -90, max: 90</source>
+        <target>Min: -90, max: 90</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.maxPitch.0">
+        <source>Maximum vertical FOV</source>
+        <target>Maximum vertical FOV</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.maxPitch.1">
+        <source>Min: -90, max: 90</source>
+        <target>Min: -90, max: 90</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.useminmaxhfov.0">
+        <source>Limit zoom</source>
+        <target>Limit zoom</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.useminmaxhfov.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.minHfov.0">
+        <source>Minimum zoom</source>
+        <target>Minimum zoom</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.minHfov.1">
+        <source>Min: 50, max: 120</source>
+        <target>Min: 50, max: 120</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.maxHfov.0">
+        <source>Maximum zoom</source>
+        <target>Maximum zoom</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.maxHfov.1">
+        <source>Min: 50, max: 120</source>
+        <target>Min: 50, max: 120</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.useminmaxyaw.0">
+        <source>Limit horizontal FOV</source>
+        <target>Limit horizontal FOV</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.useminmaxyaw.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.minYaw.0">
+        <source>Minimum horizontal FOV</source>
+        <target>Minimum horizontal FOV</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.minYaw.1">
+        <source>Min: -180, max: 180</source>
+        <target>Min: -180, max: 180</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.maxYaw.0">
+        <source>Maximum horizontal FOV</source>
+        <target>Maximum horizontal FOV</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.maxYaw.1">
+        <source>Min: -180, max: 180</source>
+        <target>Min: -180, max: 180</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.showZoomCtrl.0">
+        <source>Show zoom control</source>
+        <target>Show zoom control</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.showZoomCtrl.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.showFullscreenCtrl.0">
+        <source>Show fullscreen control</source>
+        <target>Show fullscreen control</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.showFullscreenCtrl.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.draggable.0">
+        <source>Move with mouse or touch</source>
+        <target>Move with mouse or touch</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.draggable.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.compass.0">
+        <source>Show compass</source>
+        <target>Show compass</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.compass.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.northOffset.0">
+        <source>Compass offset</source>
+        <target>Compass offset</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.northOffset.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.autoRotateOn.0">
+        <source>Auto rotate</source>
+        <target>Auto rotate</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.autoRotateOn.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.autoRotate.0">
+        <source>Rotation speed</source>
+        <target>Rotation speed</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.autoRotate.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.autoRotateInactivityDelay.0">
+        <source>Start time</source>
+        <target>Start time</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.autoRotateInactivityDelay.1">
+        <source>In milliseconds</source>
+        <target>In milliseconds</target>
+      </trans-unit>
+
+      <!-- Legends -->
+      <trans-unit id="tl_pannorama_scene.title_legend">
+        <source>Global settings</source>
+        <target>Global settings</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.controls_legend">
+        <source>Control elements</source>
+        <target>Control elements</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.zoom_legend">
+        <source>Zoom</source>
+        <target>Zoom</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.compass_legend">
+        <source>Compass</source>
+        <target>Compass</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.scene_legend">
+        <source>Scene</source>
+        <target>Scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.rotate_legend">
+        <source>Rotation</source>
+        <target>Rotation</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.hotspots">
+        <source>Hotspots</source>
+        <target>Hotspots</target>
+      </trans-unit>
+
+      <!-- Custom Types & Labels -->
+      <trans-unit id="tl_pannorama_scene.type.0">
+        <source>Panorama Type</source>
+        <target>Panorama Type</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.type.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.equirectangular.0">
+        <source>Equirectangular</source>
+        <target>Equirectangular</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.cubemap_single.0">
+        <source>Cubemap Single Image</source>
+        <target>Cubemap Single Image</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.cubemap_multi.0">
+        <source>Cubemap Multi Image</source>
+        <target>Cubemap Multi Image</target>
+      </trans-unit>
+
+      <!-- Cubemap single views -->
+      <trans-unit id="tl_pannorama_scene.panoramafront.0">
+        <source>Front view</source>
+        <target>Front view</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.panoramaright.0">
+        <source>Right view</source>
+        <target>Right view</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.panoramaback.0">
+        <source>Back view</source>
+        <target>Back view</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.panoramaleft.0">
+        <source>Left view</source>
+        <target>Left view</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.panoramaup.0">
+        <source>Top view</source>
+        <target>Top view</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.panoramadown.0">
+        <source>Bottom view</source>
+        <target>Bottom view</target>
+      </trans-unit>
+
+      <!-- Buttons -->
+      <trans-unit id="tl_pannorama_scene.new.0">
+        <source>New Scene</source>
+        <target>New Scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.new.1">
+        <source>Create a new scene</source>
+        <target>Create a new scene</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.show.0">
+        <source>Scene Details</source>
+        <target>Scene Details</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.show.1">
+        <source>Show details of scene ID %s</source>
+        <target>Show details of scene ID %s</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.cut.0">
+        <source>Move scene</source>
+        <target>Move scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.cut.1">
+        <source>Move scene ID %s</source>
+        <target>Move scene ID %s</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.editscene.0">
+        <source>Edit hotspots</source>
+        <target>Edit hotspots</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.editscene.1">
+        <source>Edit hotspots of this scene</source>
+        <target>Edit hotspots</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.edit.0">
+        <source>Edit scene</source>
+        <target>Edit scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.edit.1">
+        <source>Edit scene ID %s</source>
+        <target>Edit scene ID %s</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.editheader.0">
+        <source>Edit panorama</source>
+        <target>Edit panorama</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.editheader.1">
+        <source>Edit parent panorama configuration</source>
+        <target>Edit panorama</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.copy.0">
+        <source>Copy scene</source>
+        <target>Copy scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.copy.1">
+        <source>Copy scene ID %s</source>
+        <target>Copy scene ID %s</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_scene.delete.0">
+        <source>Delete scene</source>
+        <target>Delete scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_scene.delete.1">
+        <source>Delete scene ID %s</source>
+        <target>Delete scene ID %s</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

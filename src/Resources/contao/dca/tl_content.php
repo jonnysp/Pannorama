@@ -38,12 +38,15 @@ class tl_content_pannorama extends Backend
 	{
 
 		$this->loadLanguageFile('tl_pannorama');
+		if ($dc->value < 1)
+        {
+            return '';
+        }
 
 		$title = sprintf($GLOBALS['TL_LANG']['tl_pannorama']['edit'][1], $dc->value);
 		$href = System::getContainer()->get('router')->generate('contao_backend', array('do'=>'pannorama', 'table'=>'tl_pannorama','act'=>'edit', 'id'=>$dc->value , 'popup'=>'1', 'nb'=>'1'));
-
-		return ' <a href="' . StringUtil::specialcharsUrl($href) . '" title="' . StringUtil::specialchars($title) . '" onclick="Backend.openModalIframe({\'title\':\'' . StringUtil::specialchars(str_replace("'", "\\'", $title)) . '\',\'url\':this.href});return false">' . Image::getHtml('alias.svg', $title) . '</a>';
-
+		return ' <a href="' . StringUtil::specialcharsUrl($href) . '" onclick="Backend.openModalIframe({\'title\':\'' . StringUtil::specialchars(str_replace("'", "\\'", $title)) . '\',\'url\':this.href});return false">' . Image::getHtml('edit.svg', $title) . '</a>';
+		
 	}
 
 

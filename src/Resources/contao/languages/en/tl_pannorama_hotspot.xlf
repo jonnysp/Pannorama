@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file datatype="plaintext" original="src/Resources/contao/languages/en/tl_pannorama_hotspot.xlf" source-language="en" target-language="en">
+    <body>
+      <!-- Fields -->
+      <trans-unit id="tl_pannorama_hotspot.title.0">
+        <source>Title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.title.1">
+        <source>Please enter the hotspot title.</source>
+        <target>Please enter the hotspot title here.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_hotspot.sceneId.0">
+        <source>Target scene</source>
+        <target>Target</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.sceneId.1">
+        <source>Please select the target scene.</source>
+        <target>Please select the target scene here.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_hotspot.position.0">
+        <source>Position</source>
+        <target>Position</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.position.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_hotspot.targetposition.0">
+        <source>Target view</source>
+        <target>Target view</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.targetposition.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_hotspot.cssClass.0">
+        <source>CSS class</source>
+        <target>Hotspot CSS class</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.cssClass.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama_hotspot.type.0">
+        <source>Type</source>
+        <target>Type</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.type.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <!-- Reference values (Dropdown options) -->
+      <trans-unit id="tl_pannorama_hotspot.scene">
+        <source>Scene</source>
+        <target>Scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.info">
+        <source>Information</source>
+        <target>Information</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.url">
+        <source>Hyperlink</source>
+        <target>Hyperlink</target>
+      </trans-unit>
+
+      <!-- Legends -->
+      <trans-unit id="tl_pannorama_hotspot.title_legend">
+        <source>Global settings</source>
+        <target>Global settings</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.scene_legend">
+        <source>Scene settings</source>
+        <target>Scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.info_legend">
+        <source>Info settings</source>
+        <target>Info</target>
+      </trans-unit>
+
+      <!-- Buttons -->
+      <trans-unit id="trans-unit id=tl_pannorama_hotspot.new.0">
+        <source>New Hotspot</source>
+        <target>New Hotspot</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.new.1">
+        <source>Create a new hotspot</source>
+        <target>Create a new hotspot</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama_hotspot.show.0">
+        <source>Hotspot Details</source>
+        <target>Hotspot Details</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.show.1">
+        <source>Show details of hotspot ID %s</source>
+        <target>Show details of hotspot ID %s</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama_hotspot.cut.0">
+        <source>Move hotspot</source>
+        <target>Move hotspot</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.cut.1">
+        <source>Move hotspot ID %s</source>
+        <target>Move hotspot ID %s</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama_hotspot.edit.0">
+        <source>Edit hotspot</source>
+        <target>Edit hotspot</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.edit.1">
+        <source>Edit hotspot ID %s</source>
+        <target>Edit hotspot ID %s</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama_hotspot.editheader.0">
+        <source>Edit scene</source>
+        <target>Edit scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.editheader.1">
+        <source>Edit scene</source>
+        <target>Edit scene</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama_hotspot.pastenew.0">
+        <source>Create a new hotspot</source>
+        <target>Create a new hotspot</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.pastenew.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama_hotspot.copy.0">
+        <source>Copy hotspot</source>
+        <target>Copy hotspot</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.copy.1">
+        <source>Copy hotspot ID %s</source>
+        <target>Copy hotspot ID %s</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama_hotspot.delete.0">
+        <source>Delete hotspot</source>
+        <target>Delete hotspot</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama_hotspot.delete.1">
+        <source>Delete hotspot ID %s</source>
+        <target>Delete hotspot ID %s</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -7,7 +7,7 @@ use Contao\System;
 use Contao\FilesModel;
 use Contao\Image;
 use Contao\Image\ResizeConfiguration;
-
+use Contao\CoreBundle\DataContainer\RecordLabel;
 use Pannorama\Model\PannoramaHotspotModel;
 
 
@@ -45,8 +45,15 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 			'mode'                    => 4,
 			'headerFields'            => array('title','autoLoad','firstScene','sceneFadeDuration','hotSpotDebug'),
 			'disableGrouping'         => true,
-			'panelLayout'             => 'filter;sort,search,limit',
-			'child_record_callback'   => array('tl_pannorama_scene', 'generateReferenzRow')
+			'flag'                    => 1,
+			'panelLayout'             => 'filter;sort,search,limit'
+		),
+
+		'label' => array
+		(
+			'fields'                  => array('title'),
+			'format'                  => '%s',
+			'label_callback'          => array('tl_pannorama_scene', 'generateReferenzRow')
 		),
 
 		'global_operations' => array
@@ -137,6 +144,7 @@ $GLOBALS['TL_DCA']['tl_pannorama_scene'] = array
 
 		'pid' => array
 		(
+			'foreignKey'   			  => 'tl_pannorama.id', 
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 
@@ -428,7 +436,7 @@ class tl_pannorama_scene extends Backend
 {
 	
 
-	public function generateReferenzRow($arrRow)	
+	public function generateReferenzRow($arrRow, $label)	
 	{
 
 		$this->loadLanguageFile('tl_pannorama_scene');
@@ -500,7 +508,8 @@ class tl_pannorama_scene extends Backend
 		        break;
 
 		}
-		return $label;
+
+		return RecordLabel::fromHtml($label);
 
     }
 

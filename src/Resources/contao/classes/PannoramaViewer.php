@@ -1,7 +1,6 @@
 <?php
 use Contao\ContentElement;
 use Contao\System;
-use Contao\BackendTemplate;
 use Contao\FilesModel;
 use Contao\File;
 use Contao\Image;
@@ -9,13 +8,14 @@ use Contao\Image\ResizeConfiguration;
 use Contao\Image\ResizeOptions;
 use Contao\Image\ImportantPart;
 
+
 use Pannorama\Model\PannoramaModel;
 use Pannorama\Model\PannoramaSceneModel;
 use Pannorama\Model\PannoramaHotspotModel;
 
 class PannoramaViewer extends ContentElement
 {
-	protected $strTemplate = 'mod_pannorama';
+	protected $strTemplate = 'ce_pannorama';
 
 	public function generate()
 	{
@@ -34,8 +34,6 @@ class PannoramaViewer extends ContentElement
 			$objPannorama = PannoramaModel::findByPK($this->pannoramaviewer);
 
 			if (isset($objPannorama)) {
-				$objTemplate = new BackendTemplate('be_wildcard');
-				$objTemplate->title =  $objPannorama->title;
 
 				//build config
 		 		$config['default']['firstScene'] = $objPannorama->firstScene;
@@ -171,7 +169,7 @@ class PannoramaViewer extends ContentElement
 						$config['scenes'][$value->id]['compass'] = boolval($value->compass);
 						$config['scenes'][$value->id]['northOffset'] =  intval($value->northOffset);
 						$config['scenes'][$value->id]['keyboardZoom'] = boolval($value->keyboardZoom);
-				        	$config['scenes'][$value->id]['mouseZoom'] = $value->mouseZoom;
+				        $config['scenes'][$value->id]['mouseZoom'] = $value->mouseZoom;
 						$config['scenes'][$value->id]['minHfov'] =  intval($value->minHfov);
 						$config['scenes'][$value->id]['maxHfov'] = intval($value->maxHfov);
 						$config['scenes'][$value->id]['doubleClickZoom'] = boolval($value->doubleClickZoom);
@@ -220,13 +218,13 @@ class PannoramaViewer extends ContentElement
 			        }
 				}
 
-				$objTemplate->wildcard = '<div style="height:400px;" id="panorama'. $this->id.'" class="tl_text"></div></br>'."<script type=".'"text/javascript"'.">pannellum.viewer('panorama". $this->id."',". json_encode($config) .');</script>';
-
+				$output = '<div style="height:400px;" id="panorama'. $this->id.'" class="tl_text"></div></br>'."<script type=".'"text/javascript"'.">pannellum.viewer('panorama". $this->id."',". json_encode($config) .');</script>';
 				unset($config);
-				return $objTemplate->parse();
+				return $output;
+
 			}
 		}
-		return parent::generate();
+		return  parent::generate();
 	}//end generate
 
 

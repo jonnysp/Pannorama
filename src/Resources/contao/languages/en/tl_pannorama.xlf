@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file datatype="plaintext" original="src/Resources/contao/languages/en/tl_pannorama.xlf" source-language="en" target-language="en">
+    <body>
+      <!-- Fields -->
+      <trans-unit id="tl_pannorama.title.0">
+        <source>Title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.title.1">
+        <source>Please enter the panorama title.</source>
+        <target>Please enter the panorama title.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama.autoLoad.0">
+        <source>Autoload</source>
+        <target>Autoload</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.autoLoad.1">
+        <source>Enable to start the panorama automatically.</source>
+        <target>Enable to start the panorama automatically.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama.loadButtonLabel.0">
+        <source>Load button label</source>
+        <target>Load button label</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.loadButtonLabel.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama.preview.0">
+        <source>Preview</source>
+        <target>Preview</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.preview.1">
+        <source>Preview for non-autoload panos.</source>
+        <target>Preview for panoramas that do not start automatically.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama.sceneFadeDuration.0">
+        <source>Scene fade duration</source>
+        <target>Transition time</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.sceneFadeDuration.1">
+        <source>Scene fade duration</source>
+        <target>Scene transition time in milliseconds.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama.hotSpotDebug.0">
+        <source>Debug mode</source>
+        <target>Debug mode</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.hotSpotDebug.1">
+        <source>Do not activate in live mode!</source>
+        <target>Do not activate in live mode!</target>
+      </trans-unit>
+
+      <trans-unit id="tl_pannorama.firstScene.0">
+        <source>Start Scene</source>
+        <target>Start Scene</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.firstScene.1">
+        <source></source>
+        <target></target>
+      </trans-unit>
+
+      <!-- Legends -->
+      <trans-unit id="tl_pannorama.title_legend">
+        <source>Global settings</source>
+        <target>Global settings</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.debug_legend">
+        <source>Debug</source>
+        <target>Debug</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.preview_legend">
+        <source>Preview</source>
+        <target>Preview</target>
+      </trans-unit>
+      
+      <!-- Custom Messages / Errors -->
+      <trans-unit id="tl_pannorama.notcubemap">
+        <source>Image is not a cubemap format!</source>
+        <target>Image is not a cubemap format!</target>
+      </trans-unit>
+
+      <!-- Buttons -->
+      <trans-unit id="tl_pannorama.new.0">
+        <source>New Panorama</source>
+        <target>New Panorama</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.new.1">
+        <source>Create a new panorama</source>
+        <target>Create a new panorama</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama.show.0">
+        <source>Panorama details</source>
+        <target>Panorama details</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.show.1">
+        <source>Show details of panorama ID %s</source>
+        <target>Show details of panorama ID %s</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama.edit.0">
+        <source>Edit panorama</source>
+        <target>Edit panorama</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.edit.1">
+        <source>Edit panorama ID %s</source>
+        <target>Edit panorama ID %s</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama.editheader.0">
+        <source>Edit scenes</source>
+        <target>Edit scenes</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.editheader.1">
+        <source>Edit scenes</source>
+        <target>Edit scenes</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama.copy.0">
+        <source>Copy panorama</source>
+        <target>Copy panorama</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.copy.1">
+        <source>Copy panorama ID %s</source>
+        <target>Copy panorama ID %s</target>
+      </trans-unit>
+      
+      <trans-unit id="tl_pannorama.delete.0">
+        <source>Delete panorama</source>
+        <target>Delete panorama</target>
+      </trans-unit>
+      <trans-unit id="tl_pannorama.delete.1">
+        <source>Delete panorama ID %s</source>
+        <target>Delete panorama ID %s</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
